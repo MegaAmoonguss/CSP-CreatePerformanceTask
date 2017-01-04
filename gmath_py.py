@@ -48,8 +48,14 @@ def main():
             try:
                 a, b = [float(n) for n in arg.split('/')]
                 
-                a = int(a * (10**(len(str(a).split('.')[1]))))
-                b = int(b * (10**(len(str(b).split('.')[1]))))
+                decimals = 0
+                if len(str(a).split('.')[1]) > len(str(b).split('.')[1]):
+                    decimals = len(str(a).split('.')[1])
+                else:
+                    decimals = len(str(b).split('.')[1])
+                
+                a = int(a * (10**decimals))
+                b = int(b * (10**decimals))
                 
                 divisor = gcd(a, b)
                 reduced = str(int(a / divisor)) + '/' + str(int(b / divisor))
