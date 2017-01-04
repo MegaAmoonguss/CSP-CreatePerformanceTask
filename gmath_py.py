@@ -1,4 +1,5 @@
-import sys, getopt
+import sys
+import getopt
 import math
 
 def usage():
