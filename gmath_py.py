@@ -6,25 +6,29 @@ def usage():
     print()
     print("Operations:")
     print("-h --help            - shows the help menu")
-    print("-f --factor          - returns the factors of the integer input")
-    print("-p --prime-factor    - returns the prime factors of the integer input")
+    print("-f --factor          - returns the factors of the integer")
+    print("-p --prime-factor    - returns the prime factors of the integer")
     print("-r --reduce          - reduces a given fraction in the form a/b")
+    print("-s --square-root     - returns the exact square root of an integer, approximate for decimals")
 
 def main():
     try:
-        opts, _ = getopt.getopt(sys.argv[1:], "hf:p:r:", ["help", "factor=", "prime-factor=", "--reduce="])
+        opts, _ = getopt.getopt(sys.argv[1:], "hf:p:r:s:", ["help", "factor=", "prime-factor=", "--reduce=", "square-root="])
     except getopt.GetoptError:
         usage()
         sys.exit(2)
     
+    # TODO: add error handling
     for opt, arg in opts:
         if opt in ("-h", "--help"):
             usage()
             sys.exit()
+            
         elif opt in ("-f", "--factor"):
             factors = factor(int(arg))
             
             print("The factors of {0} are {1}".format(str(arg), str(factors)))
+            
         elif opt in ("-p", "--prime-factor"):
             pfactors = prime_factor(int(arg))
             
@@ -34,6 +38,7 @@ def main():
             factorization = factorization[:-2]
             
             print("The prime factorization of {0} is {1}".format(str(arg), factorization))
+            
         elif opt in ("-r", "--reduce"):
             try:
                 a, b = [int(n) for n in arg.split('/')]
@@ -46,6 +51,21 @@ def main():
                 print("{0} = {1}".format(arg, reduced))
             except ValueError:
                 print("Please the fraction in the format a/b.")
+        
+        elif opt in ("-s", "--square-root"):
+            if int(arg) == float(arg):
+                arg = int(arg)
+            else:
+                arg = float(arg)
+                print("The square root of {0} is {1}".format(arg, math.sqrt(arg)))
+                
+            root = math.sqrt(arg)
+            if int(root) == root:
+                print("The square root of {0} is {1}".format(arg, int(root)))
+            else:
+                unformatted_root = simplify_radical(arg)
+                formatted_root = str(unformatted_root[0]) + "sqrt(" + str(unformatted_root[1]) + ")"
+                print("The square root of {0} is {1}".format(arg, formatted_root))
             
 def factor(n):
     factors = []
@@ -78,7 +98,18 @@ def gcd(a, b):
         return gcd(b, a % b)
     
 def simplify_radical(n):
+    radical = [1, n]
+    pfactors = prime_factor(n)
     
+    i = 1
+    while i < len(pfactors):
+        if pfactors[i] == pfactors[i-1]:
+            radical[0] *= pfactors[i]
+            radical[1] //= (pfactors[i]**2)
+            del pfactors[i]
+        i += 1
+    
+    return radical
     
 if __name__ == '__main__':
     main()
