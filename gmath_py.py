@@ -13,7 +13,7 @@ def usage():
 
 def main():
     try:
-        opts, _ = getopt.getopt(sys.argv[1:], "f:p:r:s:", ["factor=", "prime-factor=", "--reduce=", "square-root="])
+        opts, _ = getopt.getopt(sys.argv[1:], "f:p:r:s:", ["factor=", "prime-factor=", "reduce=", "square-root="])
     except getopt.GetoptError:
         usage()
         sys.exit(2)
@@ -46,7 +46,11 @@ def main():
             
         elif opt in ("-r", "--reduce"):
             try:
-                a, b = [int(n) for n in arg.split('/')]
+                a, b = [float(n) for n in arg.split('/')]
+                
+                a = int(a * (10**(len(str(a).split('.')))))
+                b = int(b * (10**(len(str(b).split('.')))))
+                
                 divisor = gcd(a, b)
                 reduced = str(int(a / divisor)) + '/' + str(int(b / divisor))
                 
@@ -55,7 +59,7 @@ def main():
                 
                 print("{0} = {1}".format(arg, reduced))
             except ValueError:
-                print("Please the fraction in the format a/b.")
+                print("Please a fraction in the format a/b where a and b are numbers.")
         
         elif opt in ("-s", "--square-root"):
             try:
