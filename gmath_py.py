@@ -6,31 +6,35 @@ def usage():
     print("Usage: gmath_py.py <operation> [input]")
     print()
     print("Operations:")
-    print("-h --help            - shows the help menu")
     print("-f --factor          - returns the factors of the integer")
     print("-p --prime-factor    - returns the prime factors of the integer")
     print("-r --reduce          - reduces a given fraction in the form a/b")
-    print("-s --square-root     - returns the exact square root of an integer, approximate for decimals")
+    print("-s --square-root     - gives the square root of a number")
 
 def main():
     try:
-        opts, _ = getopt.getopt(sys.argv[1:], "hf:p:r:s:", ["help", "factor=", "prime-factor=", "--reduce=", "square-root="])
+        opts, _ = getopt.getopt(sys.argv[1:], "f:p:r:s:", ["factor=", "prime-factor=", "--reduce=", "square-root="])
     except getopt.GetoptError:
         usage()
         sys.exit(2)
     
-    # TODO: add error handling
     for opt, arg in opts:
-        if opt in ("-h", "--help"):
-            usage()
-            sys.exit()
-            
-        elif opt in ("-f", "--factor"):
+        if opt in ("-f", "--factor"):
+            try:
+                int(arg)
+            except ValueError:
+                print("Please enter an integer.")
+                
             factors = factor(int(arg))
             
-            print("The factors of {0} are {1}".format(str(arg), str(factors)))
+            print("The factors of {0} are {1}.".format(str(arg), str(factors)))
             
         elif opt in ("-p", "--prime-factor"):
+            try:
+                int(arg)
+            except ValueError:
+                print("Please enter an integer.")
+            
             pfactors = prime_factor(int(arg))
             
             factorization = ""
@@ -38,7 +42,7 @@ def main():
                 factorization += str(f) + ' * '
             factorization = factorization[:-2]
             
-            print("The prime factorization of {0} is {1}".format(str(arg), factorization))
+            print("The prime factorization of {0} is {1}.".format(str(arg), factorization))
             
         elif opt in ("-r", "--reduce"):
             try:
@@ -54,19 +58,25 @@ def main():
                 print("Please the fraction in the format a/b.")
         
         elif opt in ("-s", "--square-root"):
-            if int(arg) == float(arg):
+            try:
+                arg = float(arg)
+            except ValueError:
+                print("Please enter a number.")
+                sys.exit()
+                
+            if int(arg) == arg:
                 arg = int(arg)
             else:
-                arg = float(arg)
-                print("The square root of {0} is {1}".format(arg, math.sqrt(arg)))
+                print("The square root of {0} is {1}.".format(arg, math.sqrt(arg)))
+                sys.exit()
                 
             root = math.sqrt(arg)
             if int(root) == root:
-                print("The square root of {0} is {1}".format(arg, int(root)))
+                print("The square root of {0} is {1}.".format(arg, int(root)))
             else:
                 unformatted_root = simplify_radical(arg)
-                formatted_root = str(unformatted_root[0]) + "sqrt(" + str(unformatted_root[1]) + ")"
-                print("The square root of {0} is {1}".format(arg, formatted_root))
+                formatted_root = str(unformatted_root[0]) + " * sqrt(" + str(unformatted_root[1]) + ")"
+                print("The square root of {0} is {1}.".format(arg, formatted_root))
             
 def factor(n):
     factors = []
