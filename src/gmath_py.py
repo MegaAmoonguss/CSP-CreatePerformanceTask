@@ -9,11 +9,12 @@ def usage():
     print("-f --factor          - returns the factors of the integer")
     print("-p --prime-factor    - returns the prime factors of the integer")
     print("-r --reduce          - reduces a given fraction in the form a/b")
-    print("-s --square-root     - gives the square root of a number")
+    print("-s --square-root     - gives the exact square root of a number")
+    print("-g --gcf             - finds the greatest common divisor of two numbers")
 
 def main():
     try:
-        opts, _ = getopt.getopt(sys.argv[1:], "f:p:r:s:", ["factor=", "prime-factor=", "reduce=", "square-root="])
+        opts, args = getopt.getopt(sys.argv[1:], "f:p:r:s:g", ["factor=", "prime-factor=", "reduce=", "square-root=", "gcf"])
     except getopt.GetoptError:
         usage()
         sys.exit(2)
@@ -27,7 +28,7 @@ def main():
                 
             factors = factor(int(arg))
             
-            print("The factors of {0} are {1}.".format(str(arg), str(factors)))
+            print(f"The factors of {arg} are {factors}.")
             
         elif opt in ("-p", "--prime-factor"):
             try:
@@ -42,28 +43,15 @@ def main():
                 factorization += str(f) + ' * '
             factorization = factorization[:-2]
             
-            print("The prime factorization of {0} is {1}.".format(str(arg), factorization))
+            print(f"The prime factorization of {arg} is {factorization}.")
             
         elif opt in ("-r", "--reduce"):
             try:
                 a, b = [float(n) for n in arg.split('/')]
                 
-                decimals = 0
-                if len(str(a).split('.')[1]) > len(str(b).split('.')[1]):
-                    decimals = len(str(a).split('.')[1])
-                else:
-                    decimals = len(str(b).split('.')[1])
+                reduced = reduce(a, b)
                 
-                a = int(a * (10**decimals))
-                b = int(b * (10**decimals))
-                
-                divisor = gcd(a, b)
-                reduced = str(int(a / divisor)) + '/' + str(int(b / divisor))
-                
-                if reduced[-1] == '1':
-                    reduced = reduced[:-2]
-                
-                print("{0} = {1}".format(arg, reduced))
+                print(f"{arg} = {reduced}")
             except ValueError:
                 print("Please a fraction in the format a/b where a and b are numbers.")
         
@@ -77,16 +65,37 @@ def main():
             if int(arg) == arg:
                 arg = int(arg)
             else:
-                print("The square root of {0} is {1}.".format(arg, math.sqrt(arg)))
+                print(f"The square root of {arg} is {math.sqrt(arg)}.")
                 sys.exit()
                 
             root = math.sqrt(arg)
             if int(root) == root:
-                print("The square root of {0} is {1}.".format(arg, int(root)))
+                print(f"The square root of {arg} is {int(root)}.")
             else:
                 unformatted_root = simplify_radical(arg)
                 formatted_root = str(unformatted_root[0]) + " * sqrt(" + str(unformatted_root[1]) + ")"
-                print("The square root of {0} is {1}.".format(arg, formatted_root))
+                print(f"The square root of {arg} is {formatted_root}.")
+        elif opt in ("-g", "--gcf"):
+            if len(args) > 2:
+                print("Please enter two integers.")
+                sys.exit(2)
+                
+            try:
+                args[0] = int(args[0])
+                args[1] = int(args[1])
+            except ValueError:
+                print("Please enter two integers.")
+                sys.exit(2)
+                
+            factor = gcf(args[0], args[1])
+            
+            print(f"The greatest common factor of {args[0]} and {args[1]} is {factor}.")
+            
+def gcf(a, b):
+    if b == 0:
+        return a
+    else:
+        return gcf(b, a % b)
             
 def factor(n):
     factors = []
@@ -102,22 +111,37 @@ def factor(n):
 def prime_factor(n):
     i = 2
     factors = []
+    
     while i * i <= n:
         if n % i:
             i += 1
         else:
             n //= i
             factors.append(i)
+            
     if n > 1:
         factors.append(n)
+        
     return factors
 
-def gcd(a, b):
-    if b == 0:
-        return a;
+def reduce(a, b):
+    decimals = 0
+    if len(str(a).split('.')[1]) > len(str(b).split('.')[1]):
+        decimals = len(str(a).split('.')[1])
     else:
-        return gcd(b, a % b)
+        decimals = len(str(b).split('.')[1])
     
+    a = int(a * (10**decimals))
+    b = int(b * (10**decimals))
+    
+    divisor = gcf(a, b)
+    reduced = str(int(a / divisor)) + '/' + str(int(b / divisor))
+    
+    if reduced[-1] == '1':
+        reduced = reduced[:-2]
+        
+    return reduced
+
 def simplify_radical(n):
     radical = [1, n]
     pfactors = prime_factor(n)
