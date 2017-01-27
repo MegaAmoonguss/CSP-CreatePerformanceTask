@@ -54,7 +54,7 @@ def main():
             try:
                 a, b = [float(n) for n in arg.split('/')]
                 
-                reduced_tup = factoring.reduce(a, b)
+                reduced_tup = fraction.reduce(a, b)
                 
                 if reduced_tup[1] == 1:
                     reduced = str(reduced_tup[0])
