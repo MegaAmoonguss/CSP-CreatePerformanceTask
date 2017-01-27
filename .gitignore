@@ -91,3 +91,6 @@ ENV/
 # Eclipse/PyDev project settings
 .project
 .pydevproject
+
+# Test module
+src/test.py
