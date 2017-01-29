@@ -14,11 +14,11 @@ def usage():
     print("-r --reduce          - reduces a given fraction in the form a/b")
     print("-d --decimal         - returns the decimal form of a fraction a/b")
     print("-s --square-root     - gives the exact square root of a number")
-    print("-g --gcf             - finds the greatest common divisor of two numbers")
+    print("-g --gcd             - finds the greatest common divisor of two numbers")
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "f:p:r:d:s:g", ["factor=", "prime-factor=", "reduce=", "decimal=", "square-root=", "gcf"])
+        opts, args = getopt.getopt(sys.argv[1:], "f:p:r:d:s:g", ["factor=", "prime-factor=", "reduce=", "decimal=", "square-root=", "gcd"])
     except getopt.GetoptError:
         usage()
         sys.exit(2)
@@ -95,7 +95,7 @@ def main():
                 unformatted_root = factoring.simplify_radical(arg)
                 formatted_root = str(unformatted_root[0]) + " * sqrt(" + str(unformatted_root[1]) + ")"
                 print(f"The square root of {arg} is {formatted_root}.")
-        elif opt in ("-g", "--gcf"):
+        elif opt in ("-g", "--gcd"):
             if len(args) > 2:
                 print("Please enter two integers.")
                 sys.exit(2)
@@ -107,9 +107,9 @@ def main():
                 print("Please enter two integers.")
                 sys.exit(2)
                 
-            factor = factoring.gcf(args[0], args[1])
+            factor = factoring.gcd(args[0], args[1])
             
-            print(f"The greatest common factor of {args[0]} and {args[1]} is {factor}.")
+            print(f"The greatest common divisor of {args[0]} and {args[1]} is {factor}.")
     
 if __name__ == '__main__':
     main()

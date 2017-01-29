@@ -1,13 +1,13 @@
 import math
 
-def gcf(a, b):
+def gcd(a, b):
     """
-    Return the greatest common factor of two positive integers.
+    Return the greatest common divisor of two positive integers.
     """
     if b == 0:
         return a
     else:
-        return gcf(b, a % b)
+        return gcd(b, a % b)
             
 def factor(n):
     """
