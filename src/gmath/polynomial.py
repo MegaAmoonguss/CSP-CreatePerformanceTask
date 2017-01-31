@@ -38,17 +38,7 @@ class Polynomial:
         p.factor_quadratic()        # (1, 1, 3, 2, 1) representing (x + 3)(2x + 1)
         
         p = Polynomial(5, -5, 360)
-        p.factor_quadratic()        # (5, 1, 9, 1, 8) representing 5(x + 9)(x + 8)
-        
-        Notes:
-        2x^2 + 7x + 3
-        2 * 3 = 6 (factors 6 and 1)
-        2x^2 + x + 6x + 3    OR    2x^2 + 6x + x + 3
-        x(2x + 1) + 3(x + 1) OR    2x(x + 3) + 1(x + 3)
-        (x + 3)(2x + 1)
-        
-        Does not work with negative factors yet.
-        May want to separate into some extra functions, not sure where to put them yet though.
+        p.factor_quadratic()        # (5, 1, -9, 1, 8) representing 5(x - 9)(x + 8)
         """
         assert self.degree == 2, "Non-quadratic polynomial."
         
@@ -71,7 +61,12 @@ class Polynomial:
                     expanded = [self.coeffs[0], -1 * ac_factors[i], ac_factors[-(i+1)], self.coeffs[2]]
                     break
                 
-        divisors = (factoring.gcd(expanded[0], expanded[1]), factoring.gcd(expanded[2], expanded[3]))
+        divisors = [factoring.gcd(expanded[0], expanded[1]), factoring.gcd(expanded[2], expanded[3])]
+        if expanded[0] < 0:
+            divisors[0] *= -1
+        if expanded[2] < 0:
+            divisors[1] *= -1
+        
         expanded[0] //= divisors[0]
         expanded[1] //= divisors[0]
         expanded[2] //= divisors[1]
