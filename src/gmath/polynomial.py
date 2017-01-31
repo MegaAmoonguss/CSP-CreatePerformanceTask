@@ -13,10 +13,16 @@ class Polynomial:
         p = Polynomial([5, -5, 360])       # Equivalent to 5x^2 - 5x + 360
         p = Polynomial([0, 0, 5, 1, 0])    # Equivalent to 5x^2 + x
         """
+        for c in coeffs:
+            assert isinstance(c, int), "Non-integer coefficient."
+        
+        self.coeffs = []
         for i in range(len(coeffs)):
             if coeffs[i] != 0:
                 self.coeffs = coeffs[i:]
                 break
+        
+        assert self.coeffs, "Empty coefficients."
         
         self.degree = len(self.coeffs)
         
