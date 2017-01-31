@@ -12,7 +12,7 @@ class Polynomial:
         self.degree is the degree of the polynomial.
         
         Example:
-        p = Polynomial([5, -5, -360])       # Equivalent to 5x^2 - 5x + -360
+        p = Polynomial([5, -5, -360])      # Equivalent to 5x^2 - 5x + -360
         p = Polynomial([0, 0, 5, 1, 0])    # Equivalent to 5x^2 + x
         """
         for c in coeffs:
@@ -48,6 +48,7 @@ class Polynomial:
         (2x + 1)(x + 3)
         
         Does not work with negative factors yet.
+        May want to separate into some extra functions, not sure where to put them yet though.
         """
         assert self.degree == 2, "Non-quadratic polynomial."
         
@@ -96,5 +97,4 @@ class Polynomial:
                     s += "x"
                     if i > 1:
                         s += "^" + str(i)
-            
         return s
