@@ -35,7 +35,6 @@ class Polynomial:
         
         Example:
         p = Polynomial(2, 7, 3)
-        str(p)                      # 2x^2 + 7x + 3
         p.factor_quadratic()        # (2, 1, 1, 3) representing (2x + 1)(x + 3)
         
         Notes:
@@ -49,6 +48,11 @@ class Polynomial:
         """
         assert self.degree == 2, "Non-quadratic polynomial."
         
+        constant = factoring.gcd(factoring.gcd(self.coeffs[0], self.coeffs[1]), self.coeffs[2])
+        
+        for i in range(len(self.coeffs)):
+            self.coeffs[i] = int(self.coeffs[i] / constant)
+        
         ac_factors = factoring.factor(self.coeffs[0] * self.coeffs[2])
         
         for i in range(len(ac_factors)):
@@ -56,12 +60,12 @@ class Polynomial:
                 expanded = [self.coeffs[0], ac_factors[i], ac_factors[-(i+1)], self.coeffs[2]]
                 
         divisors = (factoring.gcd(expanded[0], expanded[1]), factoring.gcd(expanded[2], expanded[3]))
-        expanded[0] /= divisors[0]
-        expanded[1] /= divisors[0]
-        expanded[0] /= divisors[1]
-        expanded[1] /= divisors[1]
+        expanded[0] = int(expanded[0] / divisors[0])
+        expanded[1] = int(expanded[1] / divisors[0])
+        expanded[0] = int(expanded[0] / divisors[1])
+        expanded[1] = int(expanded[1] / divisors[1])
         
-        return (divisors[0], divisors[1], int(expanded[0]), int(expanded[1]))
+        return (divisors[0], divisors[1], expanded[0], expanded[1])
         
     def __str__(self):
         """
@@ -75,8 +79,8 @@ class Polynomial:
         str(p)                             # 5x^2 + x
         """
         s = ""
-        for i in reversed(range(self.degree)):
-            if i < self.degree - 1:
+        for i in reversed(range(len(self.coeffs))):
+            if i < self.degree:
                 if self.coeffs[-(i+1)] < 0:
                     s += " - "
                 elif self.coeffs[-(i+1)] > 0:
