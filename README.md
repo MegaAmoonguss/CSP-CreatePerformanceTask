@@ -1,2 +1,2 @@
-# CSP-CreatePerformanceTask
-Some ideas for the second Performance Task in AP Computer Science Principles.
+# GMath-py
+Most of GMath's major functions in Python.
