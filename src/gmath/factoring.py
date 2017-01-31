@@ -3,6 +3,9 @@ import math
 def gcd(a, b):
     """
     Return the greatest common divisor of two positive integers.
+    
+    Example:
+    gcd(6, 8)    # 3
     """
     if b == 0:
         return a
@@ -12,6 +15,9 @@ def gcd(a, b):
 def factor(n):
     """
     Return all positive factors of n as a list.
+    
+    Example:
+    factor(24)    # [1, 2, 3, 4, 6, 8, 12, 24]
     """
     factors = []
     
@@ -26,6 +32,9 @@ def factor(n):
 def prime_factor(n):
     """
     Return the prime factorization of n as a list.
+    
+    Example:
+    prime_factor(12)    # [2, 2, 3] (meaning 2 * 2 * 3)
     """
     i = 2
     factors = []
@@ -47,7 +56,7 @@ def simplify_radical(n):
     Return the simplified version of sqrt(n) as a list.
     
     Example:
-    simplify_radical(48)    # [4, 3], meaning 4 * sqrt(3)
+    simplify_radical(48)    # [4, 3] (meaning 4 * sqrt(3))
     """
     radical = [1, n]
     pfactors = prime_factor(n)

@@ -5,17 +5,21 @@ import gmath.factoring as factoring
 def reduce(a, b):
     """
     Return the reduced version of the fraction a/b as a tuple.
+    
+    Example:
+    reduce(8, 6)        # (4, 3)
+    reduce(8.4, 6.2)    # (42, 31)
     """
     decimals = 0
-    if len(str(a).split('.')[1]) > len(str(b).split('.')[1]):
-        decimals = len(str(a).split('.')[1])
+    if len(str(float(a)).split('.')[1]) > len(str(float(b)).split('.')[1]):
+        decimals = len(str(float(a)).split('.')[1])
     else:
-        decimals = len(str(b).split('.')[1])
+        decimals = len(str(float(b)).split('.')[1])
     
     a = int(a * (10**decimals))
     b = int(b * (10**decimals))
     
-    divisor = factoring.gcf(a, b)
+    divisor = factoring.gcd(a, b)
     reduced = (int(a / divisor), (int(b / divisor)))
         
     return reduced
@@ -26,7 +30,7 @@ def repeating_decimal(a, b):
     including repeating decimal notation.
     
     Example:
-    repeating_decimal(1, 6) # 0.1(6)
+    repeating_decimal(1, 6)    # 0.1(6)
     """
     divided = []
     denom = b
