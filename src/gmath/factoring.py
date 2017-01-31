@@ -2,13 +2,13 @@ import math
 
 def gcd(a, b):
     """
-    Return the greatest common divisor of two positive integers.
+    Return the positive greatest common divisor of two integers.
     
     Example:
     gcd(6, 8)    # 3
     """
     if b == 0:
-        return a
+        return abs(a)
     else:
         return gcd(b, a % b)
             

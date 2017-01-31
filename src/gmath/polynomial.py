@@ -12,7 +12,7 @@ class Polynomial:
         self.degree is the degree of the polynomial.
         
         Example:
-        p = Polynomial([5, -5, -360])      # Equivalent to 5x^2 - 5x + -360
+        p = Polynomial([5, -5, -360])      # Equivalent to 5x^2 - 5x - 360
         p = Polynomial([0, 0, 5, 1, 0])    # Equivalent to 5x^2 + x
         """
         for c in coeffs:
@@ -35,7 +35,7 @@ class Polynomial:
         
         Example:
         p = Polynomial(2, 7, 3)
-        p.factor_quadratic()        # (1, 2, 1, 1, 3) representing (2x + 1)(x + 3)
+        p.factor_quadratic()        # (1, 1, 3, 2, 1) representing (x + 3)(2x + 1)
         
         p = Polynomial(5, -5, 360)
         p.factor_quadratic()        # (5, 1, 9, 1, 8) representing 5(x + 9)(x + 8)
@@ -45,7 +45,7 @@ class Polynomial:
         2 * 3 = 6 (factors 6 and 1)
         2x^2 + x + 6x + 3    OR    2x^2 + 6x + x + 3
         x(2x + 1) + 3(x + 1) OR    2x(x + 3) + 1(x + 3)
-        (2x + 1)(x + 3)
+        (x + 3)(2x + 1)
         
         Does not work with negative factors yet.
         May want to separate into some extra functions, not sure where to put them yet though.
@@ -59,15 +59,23 @@ class Polynomial:
         
         ac_factors = factoring.factor(abs(self.coeffs[0] * self.coeffs[2]))
         
-        for i in range(len(ac_factors)):
+        for i in range(len(ac_factors) // 2):
             if ac_factors[i] + ac_factors[-(i+1)] == self.coeffs[1]:
                 expanded = [self.coeffs[0], ac_factors[i], ac_factors[-(i+1)], self.coeffs[2]]
+                break
+            elif abs(ac_factors[i] - ac_factors[-(i+1)]) == abs(self.coeffs[1]):
+                if self.coeffs[1] < 0:
+                    expanded = [self.coeffs[0], ac_factors[i], -1 * ac_factors[-(i+1)], self.coeffs[2]]
+                    break
+                else:
+                    expanded = [self.coeffs[0], -1 * ac_factors[i], ac_factors[-(i+1)], self.coeffs[2]]
+                    break
                 
         divisors = (factoring.gcd(expanded[0], expanded[1]), factoring.gcd(expanded[2], expanded[3]))
-        expanded[0] = int(expanded[0] / divisors[0])
-        expanded[1] = int(expanded[1] / divisors[0])
-        expanded[0] = int(expanded[0] / divisors[1])
-        expanded[1] = int(expanded[1] / divisors[1])
+        expanded[0] //= divisors[0]
+        expanded[1] //= divisors[0]
+        expanded[2] //= divisors[1]
+        expanded[3] //= divisors[1]
         
         return (constant, divisors[0], divisors[1], expanded[0], expanded[1])
         
