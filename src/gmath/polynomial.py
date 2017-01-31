@@ -1,3 +1,5 @@
+from gmath import factoring
+
 class Polynomial:
     """
     A class to model polynomial equations.
@@ -24,7 +26,42 @@ class Polynomial:
         
         assert self.coeffs, "Empty coefficients."
         
-        self.degree = len(self.coeffs)
+        self.degree = len(self.coeffs) - 1
+        
+    def factor_quadratic(self):
+        """
+        Return a tuple (a, b, c, d) representing the factored form of the quadratic,
+        such that (a, b, c, d) = (ax + b)(cx + d).
+        
+        Example:
+        p = Polynomial(2, 7, 3)
+        str(p)                      # 2x^2 + 7x + 3
+        p.factor_quadratic()        # (2, 1, 1, 3) representing (2x + 1)(x + 3)
+        
+        Notes:
+        2x^2 + 7x + 3
+        2 * 3 = 6 (factors 6 and 1)
+        2x^2 + x + 6x + 3    OR    2x^2 + 6x + x + 3
+        x(2x + 1) + 3(x + 1) OR    2x(x + 3) + 1(x + 3)
+        (2x + 1)(x + 3)
+        
+        Does not take out common factor from 3 coeffs yet.
+        """
+        assert self.degree == 2, "Non-quadratic polynomial."
+        
+        ac_factors = factoring.factor(self.coeffs[0] * self.coeffs[2])
+        
+        for i in range(len(ac_factors)):
+            if ac_factors[i] + ac_factors[-(i+1)] == self.coeffs[1]:
+                expanded = [self.coeffs[0], ac_factors[i], ac_factors[-(i+1)], self.coeffs[2]]
+                
+        divisors = (factoring.gcd(expanded[0], expanded[1]), factoring.gcd(expanded[2], expanded[3]))
+        expanded[0] /= divisors[0]
+        expanded[1] /= divisors[0]
+        expanded[0] /= divisors[1]
+        expanded[1] /= divisors[1]
+        
+        return (divisors[0], divisors[1], int(expanded[0]), int(expanded[1]))
         
     def __str__(self):
         """

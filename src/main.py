@@ -2,8 +2,8 @@ import sys
 import getopt
 import math
 
-import gmath.fraction as fraction
-import gmath.factoring as factoring
+from gmath import fraction
+from gmath import factoring
 
 def usage():
     print("Usage: main.py <operation> [input]")
