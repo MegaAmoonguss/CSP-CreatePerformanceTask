@@ -12,7 +12,7 @@ class Polynomial:
         self.degree is the degree of the polynomial.
         
         Example:
-        p = Polynomial([5, -5, 360])       # Equivalent to 5x^2 - 5x + 360
+        p = Polynomial([5, -5, -360])       # Equivalent to 5x^2 - 5x + -360
         p = Polynomial([0, 0, 5, 1, 0])    # Equivalent to 5x^2 + x
         """
         for c in coeffs:
@@ -30,12 +30,15 @@ class Polynomial:
         
     def factor_quadratic(self):
         """
-        Return a tuple (a, b, c, d) representing the factored form of the quadratic,
-        such that (a, b, c, d) = (ax + b)(cx + d).
+        Return a tuple (a, b, c, d, e) representing the factored form of the quadratic,
+        such that (a, b, c, d, e) = a(bx + c)(ex + d).
         
         Example:
         p = Polynomial(2, 7, 3)
-        p.factor_quadratic()        # (2, 1, 1, 3) representing (2x + 1)(x + 3)
+        p.factor_quadratic()        # (1, 2, 1, 1, 3) representing (2x + 1)(x + 3)
+        
+        p = Polynomial(5, -5, 360)
+        p.factor_quadratic()        # (5, 1, 9, 1, 8) representing 5(x + 9)(x + 8)
         
         Notes:
         2x^2 + 7x + 3
@@ -44,7 +47,7 @@ class Polynomial:
         x(2x + 1) + 3(x + 1) OR    2x(x + 3) + 1(x + 3)
         (2x + 1)(x + 3)
         
-        Does not take out common factor from 3 coeffs yet.
+        Does not work with negative factors yet.
         """
         assert self.degree == 2, "Non-quadratic polynomial."
         
@@ -53,7 +56,7 @@ class Polynomial:
         for i in range(len(self.coeffs)):
             self.coeffs[i] = int(self.coeffs[i] / constant)
         
-        ac_factors = factoring.factor(self.coeffs[0] * self.coeffs[2])
+        ac_factors = factoring.factor(abs(self.coeffs[0] * self.coeffs[2]))
         
         for i in range(len(ac_factors)):
             if ac_factors[i] + ac_factors[-(i+1)] == self.coeffs[1]:
@@ -65,15 +68,15 @@ class Polynomial:
         expanded[0] = int(expanded[0] / divisors[1])
         expanded[1] = int(expanded[1] / divisors[1])
         
-        return (divisors[0], divisors[1], expanded[0], expanded[1])
+        return (constant, divisors[0], divisors[1], expanded[0], expanded[1])
         
     def __str__(self):
         """
         Return the object as a properly formatted polynomial function.
         
         Example:
-        p = Polynomial([5, -5, 360])
-        str(p)                             # 5x^2 - 5x + 360
+        p = Polynomial([5, -5, -360])
+        str(p)                             # 5x^2 - 5x - 360
         
         p = Polynomial([0, 0, 5, 1, 0])
         str(p)                             # 5x^2 + x
