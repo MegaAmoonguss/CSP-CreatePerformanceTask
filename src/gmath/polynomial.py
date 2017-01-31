@@ -35,10 +35,10 @@ class Polynomial:
         
         Example:
         p = Polynomial(2, 7, 3)
-        p.factor_quadratic()        # (1, 1, 3, 2, 1) representing (x + 3)(2x + 1)
+        p.factor_quadratic()        # (1, 1, 3, 2, 1) (meaning (x + 3)(2x + 1))
         
         p = Polynomial(5, -5, 360)
-        p.factor_quadratic()        # (5, 1, -9, 1, 8) representing 5(x - 9)(x + 8)
+        p.factor_quadratic()        # (5, 1, -9, 1, 8) (meaning 5(x - 9)(x + 8))
         """
         assert self.degree == 2, "Non-quadratic polynomial."
         
