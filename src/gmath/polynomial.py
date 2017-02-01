@@ -13,8 +13,9 @@ class Polynomial:
         self.degree is the degree of the polynomial.
         
         Example:
-        p = Polynomial([5, -5, -360])      # Equivalent to 5x^2 - 5x - 360
-        p = Polynomial([0, 0, 5, 1, 0])    # Equivalent to 5x^2 + x
+        p = Polynomial(coeffs=[5, -5, -360])      # Equivalent to 5x^2 - 5x - 360
+        p = Polynomial(coeffs=[0, 0, 5, 1, 0])    # Equivalent to 5x^2 + x
+        p = Polynomial(points=[(0, 0), (1, 2)]    # Equivalent to 2x
         """
         assert bool(coeffs) ^ bool(points), "Invalid parameters."
         
@@ -34,7 +35,11 @@ class Polynomial:
         else:
             assert len(points) == 2, "Incorrect number of points."
             
-            
+            # points = [(-1, -1), (1, 1)]
+            self.coeffs = []
+            self.coeffs.append((points[1][1] - points[0][1]) / (points[1][0] - points[0][0]))
+            self.coeffs.append(points[0][1] - (self.coeffs[0] * points[0][0]))
+            self.degree = 1
         
     def factor_quadratic(self):
         """
@@ -49,6 +54,8 @@ class Polynomial:
         p.factor_quadratic()        # (5, 1, -9, 1, 8) (meaning 5(x - 9)(x + 8))
         """
         assert self.degree == 2, "Non-quadratic polynomial."
+        for c in self.coeffs:
+            assert isinstance(c, int), "Non-integer coefficient."
         
         coeffs = list(self.coeffs)
         constant = factoring.gcd(factoring.gcd(coeffs[0], coeffs[1]), coeffs[2])
