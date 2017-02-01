@@ -102,6 +102,7 @@ class Polynomial:
                     if i > 1:
                         s += "^" + str(i)
         return s
+    # End of Polynomial class
     
 def factored_str(f):
     """
