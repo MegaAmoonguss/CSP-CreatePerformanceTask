@@ -49,7 +49,7 @@ class Polynomial:
         
         ac_factors = factoring.factor(abs(self.coeffs[0] * self.coeffs[2]))
         
-        for i in range(len(ac_factors) // 2):
+        for i in range((len(ac_factors) // 2) + 1):
             if ac_factors[i] + ac_factors[-(i+1)] == self.coeffs[1]:
                 expanded = [self.coeffs[0], ac_factors[i], ac_factors[-(i+1)], self.coeffs[2]]
                 break
@@ -94,7 +94,7 @@ class Polynomial:
                     s += " + "
             
             if self.coeffs[-(i+1)] != 0:
-                if self.coeffs[-(i+1)] != 1:
+                if self.coeffs[-(i+1)] != 1 or i == 0:
                     s += str(abs(self.coeffs[-(i+1)]))
                 if i > 0:
                     s += "x"

@@ -4,6 +4,7 @@ import math
 
 from gmath import fraction
 from gmath import factoring
+from gmath.polynomial import Polynomial
 
 def usage():
     print("Usage: main.py <operation> [input]")
@@ -15,10 +16,12 @@ def usage():
     print("-d --decimal         - returns the decimal form of a fraction a/b")
     print("-s --square-root     - gives the exact square root of a number")
     print("-g --gcd             - finds the greatest common divisor of two numbers")
+    print("-q --quadratic       - returns a factored form of the quadratic with the")
+    print("                       entered coefficients")
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "f:p:r:d:s:g", ["factor=", "prime-factor=", "reduce=", "decimal=", "square-root=", "gcd"])
+        opts, args = getopt.getopt(sys.argv[1:], "f:p:r:d:s:gq", ["factor=", "prime-factor=", "reduce=", "decimal=", "square-root=", "gcd", "quadratic"])
     except getopt.GetoptError:
         usage()
         sys.exit(2)
@@ -110,6 +113,18 @@ def main():
             factor = factoring.gcd(args[0], args[1])
             
             print(f"The greatest common divisor of {args[0]} and {args[1]} is {factor}.")
+            
+        elif opt in ("-q", "--quadratic"):
+            if len(args) != 3:
+                print("Please enter three integers.")
+                sys.exit(2)
+                
+            try:
+                p = Polynomial([int(args[0]), int(args[1]), int(args[2])])
+                print(p.factor_quadratic())
+            except ValueError:
+                print("Please enter three integers.")
+                sys.exit(2)
     
 if __name__ == '__main__':
     main()
