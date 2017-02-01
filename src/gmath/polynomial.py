@@ -5,28 +5,36 @@ class Polynomial:
     A class to model polynomial equations.
     """
     
-    def __init__(self, coeffs):
+    def __init__(self, coeffs=None, points=None):
         """
-        Initialize the Polynomial object.
-        self.coeffs to be the coeffs parameter stripped of leading zeros.
+        Initialize the Polynomial object using either coefficients or 2/3 points on the line
+        for 1st and 2nd degree polynomials (3 points to be added).
+        self.coeffs are the coeffs parameter stripped of leading zeros.
         self.degree is the degree of the polynomial.
         
         Example:
         p = Polynomial([5, -5, -360])      # Equivalent to 5x^2 - 5x - 360
         p = Polynomial([0, 0, 5, 1, 0])    # Equivalent to 5x^2 + x
         """
-        for c in coeffs:
-            assert isinstance(c, int), "Non-integer coefficient."
+        assert bool(coeffs) ^ bool(points), "Invalid parameters."
         
-        self.coeffs = []
-        for i in range(len(coeffs)):
-            if coeffs[i] != 0:
-                self.coeffs = coeffs[i:]
-                break
-        
-        assert self.coeffs, "Empty coefficients."
-        
-        self.degree = len(self.coeffs) - 1
+        if coeffs:
+            for c in coeffs:
+                assert isinstance(c, int), "Non-integer coefficient."
+            
+            self.coeffs = []
+            for i in range(len(coeffs)):
+                if coeffs[i] != 0:
+                    self.coeffs = coeffs[i:]
+                    break
+            
+            assert self.coeffs, "Empty coefficients."
+            
+            self.degree = len(self.coeffs) - 1
+        else:
+            assert len(points) == 2, "Incorrect number of points."
+            
+            
         
     def factor_quadratic(self):
         """
