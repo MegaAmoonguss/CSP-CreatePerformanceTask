@@ -102,3 +102,39 @@ class Polynomial:
                     if i > 1:
                         s += "^" + str(i)
         return s
+    
+def factored_str(f):
+    """
+    Returns a formatted version of the tuple returned by factor_quadratic().
+    
+    Example:
+    p = Polynomial(5, -5, -360)
+    f = factor_quadratic(p)
+    factored_str(f)
+    """
+    assert len(f) == 5, "Invalid input: incorrect length."
+    for c in f:
+        assert isinstance(c, int), "Invalid input: non-int value."
+    
+    s = ""
+    if f[0] != 1:
+        s += str(f[0])
+    s += "("
+    if f[1] != 1:
+        s += str(f[1])
+    s += "x"
+    if f[2] < 0:
+        s += " - " + str(abs(f[2]))
+    else:
+        s += " + " + str(f[2])
+    s += ")("
+    if f[3] != 1:
+        s += str(f[1])
+    s += "x"
+    if f[4] < 0:
+        s += " - " + str(abs(f[4]))
+    else:
+        s += " + " + str(f[4])
+    s += ")"
+    
+    return s

@@ -4,7 +4,7 @@ import math
 
 from gmath import fraction
 from gmath import factoring
-from gmath.polynomial import Polynomial
+from gmath import polynomial
 
 def usage():
     print("Usage: main.py <operation> [input]")
@@ -120,31 +120,8 @@ def main():
                 sys.exit(2)
                 
             try:
-                p = Polynomial([int(args[0]), int(args[1]), int(args[2])])
-                f = p.factor_quadratic()
-                
-                s = f"{str(p)} = "
-                if f[0] != 1:
-                    s += str(f[0])
-                s += "("
-                if f[1] != 1:
-                    s += str(f[1])
-                s += "x"
-                if f[2] < 0:
-                    s += " - " + str(abs(f[2]))
-                else:
-                    s += " + " + str(f[2])
-                s += ")("
-                if f[3] != 1:
-                    s += str(f[1])
-                s += "x"
-                if f[4] < 0:
-                    s += " - " + str(abs(f[4]))
-                else:
-                    s += " + " + str(f[4])
-                s += ")"
-                
-                print(s)
+                p = polynomial.Polynomial([int(args[0]), int(args[1]), int(args[2])])
+                print(f"{str(p)} = {polynomial.factored_str(p.factor_quadratic())}")
             except ValueError:
                 print("Please enter three integers.")
                 sys.exit(2)
