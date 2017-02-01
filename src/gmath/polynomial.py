@@ -42,23 +42,24 @@ class Polynomial:
         """
         assert self.degree == 2, "Non-quadratic polynomial."
         
-        constant = factoring.gcd(factoring.gcd(self.coeffs[0], self.coeffs[1]), self.coeffs[2])
+        coeffs = list(self.coeffs)
+        constant = factoring.gcd(factoring.gcd(coeffs[0], coeffs[1]), coeffs[2])
         
-        for i in range(len(self.coeffs)):
-            self.coeffs[i] = int(self.coeffs[i] / constant)
+        for i in range(len(coeffs)):
+            coeffs[i] = int(coeffs[i] / constant)
         
-        ac_factors = factoring.factor(abs(self.coeffs[0] * self.coeffs[2]))
+        ac_factors = factoring.factor(abs(coeffs[0] * coeffs[2]))
         
         for i in range((len(ac_factors) // 2) + 1):
-            if ac_factors[i] + ac_factors[-(i+1)] == self.coeffs[1]:
-                expanded = [self.coeffs[0], ac_factors[i], ac_factors[-(i+1)], self.coeffs[2]]
+            if ac_factors[i] + ac_factors[-(i+1)] == coeffs[1]:
+                expanded = [coeffs[0], ac_factors[i], ac_factors[-(i+1)], coeffs[2]]
                 break
-            elif abs(ac_factors[i] - ac_factors[-(i+1)]) == abs(self.coeffs[1]):
-                if self.coeffs[1] < 0:
-                    expanded = [self.coeffs[0], ac_factors[i], -1 * ac_factors[-(i+1)], self.coeffs[2]]
+            elif abs(ac_factors[i] - ac_factors[-(i+1)]) == abs(coeffs[1]):
+                if coeffs[1] < 0:
+                    expanded = [coeffs[0], ac_factors[i], -1 * ac_factors[-(i+1)], coeffs[2]]
                     break
                 else:
-                    expanded = [self.coeffs[0], -1 * ac_factors[i], ac_factors[-(i+1)], self.coeffs[2]]
+                    expanded = [coeffs[0], -1 * ac_factors[i], ac_factors[-(i+1)], coeffs[2]]
                     break
                 
         divisors = [factoring.gcd(expanded[0], expanded[1]), factoring.gcd(expanded[2], expanded[3])]
