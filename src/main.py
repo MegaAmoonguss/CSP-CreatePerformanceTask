@@ -16,18 +16,26 @@ def usage():
     print("-d --decimal         - returns the decimal form of a fraction a/b")
     print("-s --square-root     - gives the exact square root of a number")
     print("-g --gcd             - finds the greatest common divisor of two numbers")
+    print("-l --lcm             - finds the lowest common multiple of two numbers")
     print("-q --quadratic       - returns a factored form of the quadratic with the")
     print("                       entered coefficients")
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "f:p:r:d:s:gq", ["factor=", "prime-factor=", "reduce=", "decimal=", "square-root=", "gcd", "quadratic"])
+        opts, args = getopt.getopt(sys.argv[1:], "hf:p:r:d:s:gq", ["help", "factor=", "prime-factor=", "reduce=", "decimal=", "square-root=", "gcd", "quadratic"])
     except getopt.GetoptError:
-        usage()
+        print("Invalid input, pass '--help' for usage.")
+        sys.exit(2)
+    
+    if not opts:
+        print("Invalid input, pass '--help' for usage.")
         sys.exit(2)
     
     for opt, arg in opts:
-        if opt in ("-f", "--factor"):
+        if opt in ("-h", "--help"):
+            usage()
+            
+        elif opt in ("-f", "--factor"):
             try:
                 int(arg)
             except ValueError:

@@ -35,7 +35,6 @@ class Polynomial:
         else:
             assert len(points) == 2, "Incorrect number of points."
             
-            # points = [(-1, -1), (1, 1)]
             self.coeffs = []
             self.coeffs.append((points[1][1] - points[0][1]) / (points[1][0] - points[0][0]))
             self.coeffs.append(points[0][1] - (self.coeffs[0] * points[0][0]))
