@@ -22,7 +22,7 @@ def usage():
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hf:p:r:d:s:gq", ["help", "factor=", "prime-factor=", "reduce=", "decimal=", "square-root=", "gcd", "quadratic"])
+        opts, args = getopt.getopt(sys.argv[1:], "hf:p:r:d:s:glq", ["help", "factor=", "prime-factor=", "reduce=", "decimal=", "square-root=", "gcd", "lcm", "quadratic"])
     except getopt.GetoptError:
         print("Invalid input, pass '--help' for usage.")
         sys.exit(2)
@@ -107,7 +107,7 @@ def main():
                 formatted_root = str(unformatted_root[0]) + " * sqrt(" + str(unformatted_root[1]) + ")"
                 print(f"The square root of {arg} is {formatted_root}.")
         elif opt in ("-g", "--gcd"):
-            if len(args) > 2:
+            if len(args) != 2:
                 print("Please enter two integers.")
                 sys.exit(2)
                 
@@ -121,6 +121,22 @@ def main():
             factor = factoring.gcd(args[0], args[1])
             
             print(f"The greatest common divisor of {args[0]} and {args[1]} is {factor}.")
+        
+        elif opt in ("-l", "--lcm"):
+            if len(args) != 2:
+                print("Please enter two integers.")
+                sys.exit(2)
+            
+            try:
+                args[0] = int(args[0])
+                args[1] = int(args[1])
+            except ValueError:
+                print("Please enter two integers.")
+                sys.exit(2)
+                
+            multiple = factoring.lcm(args[0], args[1])
+            
+            print(f"The least common multiple of {args[0]} and {args[1]} is {multiple}.")
             
         elif opt in ("-q", "--quadratic"):
             if len(args) != 3:
