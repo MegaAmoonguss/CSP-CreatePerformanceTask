@@ -132,19 +132,25 @@ def factored_str(f):
         assert isinstance(c, int), "Invalid input: non-int value."
     
     s = ""
+    if f[0] < 0:
+        s += "-"
     if f[0] != 1:
         s += str(f[0])
     s += "("
-    if f[1] != 1:
-        s += str(f[1])
+    if f[1] < 0:
+        s += "-"
+    if abs(f[1]) != 1:
+        s += str(abs(f[1]))
     s += "x"
     if f[2] < 0:
         s += " - " + str(abs(f[2]))
     else:
         s += " + " + str(f[2])
     s += ")("
-    if f[3] != 1:
-        s += str(f[1])
+    if f[0] < 0:
+        s += "-"
+    if abs(f[3]) != 1:
+        s += str(abs(f[1]))
     s += "x"
     if f[4] < 0:
         s += " - " + str(abs(f[4]))
