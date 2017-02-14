@@ -19,6 +19,8 @@ def usage():
     print("-l --lcm             - finds the lowest common multiple of two numbers")
     print("-q --quadratic       - returns a factored form of the quadratic with the")
     print("                       entered coefficients")
+    print()
+    print("If input is more than one parameter, surround all parameters with double quotes.")
 
 def main():
     try:
