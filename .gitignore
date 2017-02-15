@@ -93,7 +93,7 @@ ENV/
 .pydevproject
 
 # Test module
-src/test.py
+test.py
 
 # Start script
 gmath-py.bat
