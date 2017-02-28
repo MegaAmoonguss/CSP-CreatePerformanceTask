@@ -24,7 +24,7 @@ def usage():
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hf:p:r:d:s:g:l:q:", ["help", "factor=", "prime-factor=", "reduce=", "decimal=", "square-root=", "gcd=", "lcm=", "quadratic="])
+        opts, args = getopt.getopt(sys.argv[1:], "hf:p:r:d:s:g:l:q:", ["help", "factor=", "prime-factor=", "reduce=", "decimal=", "fraction=", "square-root=", "gcd=", "lcm=", "quadratic="])
     except getopt.GetoptError:
         print("Invalid input, pass '--help' for usage.")
         sys.exit(2)
@@ -138,7 +138,11 @@ def main():
                 sys.exit(2)
                 
             p = polynomial.Polynomial([a, b, c])
-            print(f"{str(p)} = {polynomial.factored_str(p.factor_quadratic())}")
+            factored = p.factor_quadratic()
+            if factored:
+                print(f"{str(p)} = {polynomial.factored_str(factored)}")
+            else:
+                print(f"{str(p)} is not factorable.")
     
 if __name__ == '__main__':
     main()

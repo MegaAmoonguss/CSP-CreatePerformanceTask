@@ -64,18 +64,25 @@ class Polynomial:
         
         ac_factors = factoring.factor(abs(coeffs[0] * coeffs[2]))
         
+        factorable = False
         for i in range((len(ac_factors) // 2) + 1):
             if ac_factors[i] + ac_factors[-(i+1)] == coeffs[1]:
                 expanded = [coeffs[0], ac_factors[i], ac_factors[-(i+1)], coeffs[2]]
+                factorable = True
                 break
             elif abs(ac_factors[i] - ac_factors[-(i+1)]) == abs(coeffs[1]):
                 if coeffs[1] < 0:
                     expanded = [coeffs[0], ac_factors[i], -1 * ac_factors[-(i+1)], coeffs[2]]
+                    factorable = True
                     break
                 else:
                     expanded = [coeffs[0], -1 * ac_factors[i], ac_factors[-(i+1)], coeffs[2]]
+                    factorable = True
                     break
                 
+        if not factorable:
+            return None
+        
         divisors = [factoring.gcd(expanded[0], expanded[1]), factoring.gcd(expanded[2], expanded[3])]
         if expanded[0] < 0:
             divisors[0] *= -1

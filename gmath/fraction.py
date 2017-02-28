@@ -1,5 +1,4 @@
 import math
-
 import gmath.factoring as factoring
 
 def reduce(a, b):
