@@ -43,7 +43,8 @@ class Polynomial:
     def factor_quadratic(self):
         """
         Return a tuple (a, b, c, d, e) representing the factored form of the quadratic,
-        such that (a, b, c, d, e) = a(bx + c)(ex + d).
+        such that (a, b, c, d, e) = a(bx + c)(ex + d). If the polynomial is not factorable,
+        return None.
         
         Example:
         p = Polynomial(2, 7, 3)
@@ -157,7 +158,7 @@ def factored_str(f):
     if f[0] < 0:
         s += "-"
     if abs(f[3]) != 1:
-        s += str(abs(f[1]))
+        s += str(abs(f[3]))
     s += "x"
     if f[4] < 0:
         s += " - " + str(abs(f[4]))
