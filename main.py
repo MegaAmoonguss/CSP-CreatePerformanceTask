@@ -1,8 +1,7 @@
 import sys
 import getopt
-import math
-
-from gmath.lib import *
+import gmath
+from math import sqrt
 
 def usage():
     print("Usage: main.py <operation> [input]")
@@ -41,7 +40,7 @@ def main():
             except ValueError:
                 print("Please enter an integer.")
                 
-            factors = factoring.factor(int(arg))
+            factors = gmath.factor(int(arg))
             
             print(f"The factors of {arg} are {factors}.")
             
@@ -52,7 +51,7 @@ def main():
                 print("Please enter an integer.")
                 continue
             
-            pfactors = factoring.prime_factor(int(arg))
+            pfactors = gmath.prime_factor(int(arg))
             
             factorization = ""
             for f in pfactors:
@@ -65,7 +64,7 @@ def main():
             try:
                 a, b = [float(n) for n in arg.split('/')]
                 
-                reduced_tup = fraction.reduce(a, b)
+                reduced_tup = gmath.fraction.reduce(a, b)
                 
                 if reduced_tup[1] == 1:
                     reduced = str(reduced_tup[0])
@@ -79,7 +78,7 @@ def main():
         elif opt in ("-d", "--decimal"):
             try:
                 a, b = [int(n) for n in arg.split('/')]
-                decimal = fraction.repeating_decimal(a, b)
+                decimal = gmath.repeating_decimal(a, b)
                 
                 print(f"{arg} = {decimal}")
             except ValueError:
@@ -95,15 +94,15 @@ def main():
             if int(arg) == arg:
                 arg = int(arg)
             else:
-                print(f"The square root of {arg} is {math.sqrt(arg)}.")
+                print(f"The square root of {arg} is {sqrt(arg)}.")
                 continue
                 
-            root = math.sqrt(arg)
+            root = sqrt(arg)
             if int(root) == root:
                 print(f"The square root of {arg} is {int(root)}.")
                 continue
             else:
-                unformatted_root = factoring.simplify_radical(arg)
+                unformatted_root = gmath.simplify_radical(arg)
                 formatted_root = str(unformatted_root[0]) + " * sqrt(" + str(unformatted_root[1]) + ")"
                 print(f"The square root of {arg} is {formatted_root}.")
         elif opt in ("-g", "--gcd"):
@@ -113,7 +112,7 @@ def main():
                 print("Please enter two integers.")
                 sys.exit(2)
                 
-            divisor = factoring.gcd(a, b)
+            divisor = gmath.factoring.gcd(a, b)
             
             print(f"The greatest common divisor of {a} and {b} is {divisor}.")
         
@@ -124,7 +123,7 @@ def main():
                 print("Please enter two integers.")
                 sys.exit(2)
                 
-            multiple = factoring.lcm(args[0], args[1])
+            multiple = gmath.lcm(args[0], args[1])
             
             print(f"The least common multiple of {args[0]} and {args[1]} is {multiple}.")
             
@@ -135,10 +134,10 @@ def main():
                 print("Please enter three integers.")
                 sys.exit(2)
                 
-            p = polynomial.Polynomial([a, b, c])
+            p = gmath.Polynomial([a, b, c])
             factored = p.factor_quadratic()
             if factored:
-                print(f"{str(p)} = {polynomial.factored_str(factored)}")
+                print(f"{str(p)} = {gmath.factored_str(factored)}")
             else:
                 print(f"{str(p)} is not factorable.")
     
