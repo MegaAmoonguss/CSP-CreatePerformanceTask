@@ -141,5 +141,5 @@ def main():
             else:
                 print(f"{str(p)} is not factorable.")
     
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
