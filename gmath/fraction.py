@@ -1,4 +1,5 @@
 import math
+import re
 import gmath.factoring as factoring
 
 def reduce(a, b):
@@ -50,3 +51,39 @@ def repeating_decimal(a, b):
         decimal += str(b);
 
     return decimal;
+
+def fraction(dec):
+    """
+    Return the fraction form of the given decimal dec as a tuple (a, b), representing
+    the fraction a/b. dec can be a float or string, and supports repeating decimal
+    notation using parentheses around the repeating section.
+    
+    Example:
+    fraction("0.08(3)")    # 1/12
+    fraction(0.125)        # 1/8
+    """
+    if isinstance(dec, str):
+        nonrepeat = re.compile("^[0-9]*(\.[0-9]*)$")
+        repeat = re.compile("^[0-9]*(\.[0-9]*(\([0-9]+\)))$")
+        assert nonrepeat.match(dec) or repeat.match(dec), "Improper format."
+    else:
+        assert isinstance(dec, float), "Improper format."
+    
+    if not '(' in dec:
+        dec = float(dec)
+        
+    if isinstance(dec, float):
+        numer = dec
+        denom = 10**len(str(numer).split('.')[1])
+        numer *= denom
+    else:
+        split = re.split(r"\(|\)|\.", dec)
+        val1 = 10**(len(split[1]) + len(split[2]))
+        val2 = 10**len(split[1])
+        
+        num = float(dec.replace('(', '').replace(')', ''))
+        numer = (val1 * num) - math.floor(val2 * num)
+        denom = val1 - val2
+        return reduce(numer, denom)
+
+    return reduce(numer, denom)
