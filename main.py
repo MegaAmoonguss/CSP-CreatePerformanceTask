@@ -11,6 +11,7 @@ def usage():
     print("-p --prime-factor    - returns the prime factors of the integer")
     print("-r --reduce          - reduces a given fraction in the form a/b")
     print("-d --decimal         - returns the decimal form of a fraction a/b")
+    print("   --fraction        - returns the fraction form a decimal, including repeating")
     print("-s --square-root     - gives the exact square root of a number")
     print("-g --gcd             - finds the greatest common divisor of two numbers")
     print("-l --lcm             - finds the lowest common multiple of two numbers")
@@ -83,6 +84,13 @@ def main():
                 print(f"{arg} = {decimal}")
             except ValueError:
                 print("Please a fraction in the format a/b where a and b are integers.")
+        
+        elif opt == "--fraction":
+            try:
+                frac = gmath.fraction(arg)
+                print(f"{arg} = {frac[0]}/{frac[1]}")
+            except AssertionError:
+                print("Invalid decimal format.")
         
         elif opt in ("-s", "--square-root"):
             try:
