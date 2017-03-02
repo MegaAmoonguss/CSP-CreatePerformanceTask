@@ -2,9 +2,7 @@ import sys
 import getopt
 import math
 
-from gmath import fraction
-from gmath import factoring
-from gmath import polynomial
+from gmath.lib import *
 
 def usage():
     print("Usage: main.py <operation> [input]")
