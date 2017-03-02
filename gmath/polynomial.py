@@ -136,6 +136,7 @@ def factored_str(f):
     factored_str(f)                # 5(x - 9)(x + 8)
     """
     assert len(f) == 5, "Invalid input: incorrect length."
+    
     for c in f:
         assert isinstance(c, int), "Invalid input: non-int value."
     
