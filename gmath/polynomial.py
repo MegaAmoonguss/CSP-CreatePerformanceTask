@@ -1,4 +1,4 @@
-from gmath.lib import factoring
+from gmath import factoring
 
 class Polynomial:
     """
