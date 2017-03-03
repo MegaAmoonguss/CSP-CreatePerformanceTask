@@ -132,7 +132,7 @@ def factored_str(f):
     
     Example:
     p = Polynomial(5, -5, -360)
-    f = factor_quadratic(p)
+    f = factor(p)
     factored_str(f)                # 5(x - 9)(x + 8)
     """
     assert len(f) == 5, "Invalid input: incorrect length."
