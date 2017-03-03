@@ -40,7 +40,7 @@ class Polynomial:
             self.coeffs.append(points[0][1] - (self.coeffs[0] * points[0][0]))
             self.degree = 1
         
-    def factor_quadratic(self):
+    def factor(self):
         """
         Return a tuple (a, b, c, d, e) representing the factored form of the quadratic,
         such that (a, b, c, d, e) = a(bx + c)(ex + d). If the polynomial is not factorable,
