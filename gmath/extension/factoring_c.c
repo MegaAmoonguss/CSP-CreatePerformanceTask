@@ -2,7 +2,7 @@
 #include <math.h>
 #include <Python.h>
 
-#define CHUNK_SIZE 10
+#define CHUNK_SIZE 16
 
 int compare_int(const void * a, const void * b) {
     if( *(int*)a == *(int*)b ) return 0;
