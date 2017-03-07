@@ -1,5 +1,4 @@
 import math
-import factoring_c
 
 def gcd(a, b):
     """
@@ -38,7 +37,7 @@ def factor(n):
     if n < 0:
         n *= -1
     if n < 2147483647:
-        return factoring_c.factor_c(n)
+        return factor_c(n)
     
     factors = []
     

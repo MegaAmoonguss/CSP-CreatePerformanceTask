@@ -64,7 +64,7 @@ static PyObject * factor_wrapper(PyObject * self, PyObject * args) {
 	return retfactors;
 }
 
-static PyMethodDef methods[] = {
+static PyMethodDef functions[] = {
 	{"factor_c", factor_wrapper, METH_VARARGS, "Finds the factors of a number"},
 	{NULL, NULL, 0, NULL}
 };
@@ -74,7 +74,7 @@ static struct PyModuleDef factoring_c = {
 	"factoring_c",
 	"Faster factoring.",
 	-1,
-	methods
+	functions
 };
 
 PyMODINIT_FUNC PyInit_factoring_c(void) {
