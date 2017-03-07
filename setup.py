@@ -1,6 +1,6 @@
 from setuptools import setup, Extension
 
-factoring_c = Extension("factoring_c", sources=["./extension/factoring_c.c"])
+factoring_c = Extension("factoring_c", sources=["./gmath/extension/factoring_c.c"])
 
 setup(name="gmath-py",
       version="0.0.1",
