@@ -1,6 +1,6 @@
 import math
 import re
-import gmath.factoring as factoring
+from gmath import factoring
 
 def reduce(a, b):
     """

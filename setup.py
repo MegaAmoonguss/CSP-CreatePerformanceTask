@@ -1,4 +1,4 @@
-from setuptools import setup, Extension
+from distutils.core import setup
 
 setup(name="gmath-py",
       version="0.0.1",
@@ -8,5 +8,4 @@ setup(name="gmath-py",
       author="Graham Preston",
       author_email="graham.preston@gmail.com",
       packages=["gmath"],
-      ext_modules=[Extension("gmath.factoring_c", sources=["./gmath/extension/factoring_c.c"])],
       include_package_data=True)
