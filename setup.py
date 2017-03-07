@@ -1,4 +1,6 @@
-from setuptools import setup
+from setuptools import setup, Extension
+
+factoring_c = Extension("factoring_c", sources=["./extension/factoring_c.c"])
 
 setup(name="gmath-py",
       version="0.0.1",
@@ -7,4 +9,5 @@ setup(name="gmath-py",
       url="https://github.com/MegaAmoonguss/GMath-py",
       author="Graham Preston",
       author_email="graham.preston@gmail.com",
-      packages=["gmath"])
+      packages=["gmath"],
+      ext_modules=[factoring_c])

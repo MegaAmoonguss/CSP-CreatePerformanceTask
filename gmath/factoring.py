@@ -1,4 +1,5 @@
 import math
+import factoring_c
 
 def gcd(a, b):
     """
@@ -32,6 +33,13 @@ def factor(n):
     Example:
     factor(24)    # [1, 2, 3, 4, 6, 8, 12, 24]
     """
+    if n == 0:
+        return 0
+    if n < 0:
+        n *= -1
+    if n < 2147483647:
+        return factoring_c.factor_c(n)
+    
     factors = []
     
     for i in range(1, int(math.sqrt(n)) + 1):
