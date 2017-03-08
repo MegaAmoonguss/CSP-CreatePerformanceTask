@@ -143,7 +143,7 @@ def main():
                 sys.exit(2)
                 
             p = gmath.Polynomial([a, b, c])
-            factored = p.factor_quadratic()
+            factored = p.factor()
             if factored:
                 print(f"{str(p)} = {gmath.factored_str(factored)}")
             else:
