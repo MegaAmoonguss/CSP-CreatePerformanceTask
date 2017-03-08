@@ -1,6 +1,6 @@
 from distutils.core import setup
 
-setup(name="gmath-py",
+setup(name="GMath-py",
       version="0.0.1",
       description="A Python implementation of the depricated GMath Java library",
       long_description="Useful calculation functions in Python, such as quadratic factoring, repeating decimal notation, decimal to fraction, and more.",
