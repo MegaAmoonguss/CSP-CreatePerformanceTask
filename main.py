@@ -24,6 +24,8 @@ def usage():
     print("If input is more than one parameter, surround all parameters with double quotes.")
 
 def main():
+    # should make math functions straight arguments instead of options
+    # leave options for things like file output
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hf:p:r:d:s:g:l:q:", ["help", "factor=", "prime-factor=", "reduce=", "decimal=", "fraction=", "square-root=", "gcd=", "lcm=", "quadratic=", "calcfunc="])
     except getopt.GetoptError:
