@@ -15,19 +15,31 @@ class Sequence:
         3 = quadratic
         """
         if len(terms) > 1 and terms[1:] == terms[:-1]:
-            self.type = 0
+            type = 0
             self.equation = str(terms[0])
         elif is_arithmetic(terms):
             self.type = 1
-            p = Polynomial(points=terms[:2])
-            self.equation = f"{p.coeffs[1]} * x + {p.coeffs[2]}"
+            # should probably implement this using the simple formula
+            p = Polynomial(points=((0, terms[0]), (1, terms[1])))
+            self.equation = f"{p.coeffs[0]} * x + {p.coeffs[1]}"
         elif is_geometric(terms):
             self.type = 2
             # equation to be implemented
         elif is_quadratic(terms):
             self.type = 3
-            p = Polynomial(points=terms[:3])
+            p = Polynomial(points=((0, terms[0]), (1, terms[1]), (2, terms[2])))
             self.equation = f"{p.coeffs[0]} * x**2 + {p.coeffs[1]} * x + {p.coeffs[2]}"
+        else:
+            raise ValueError("No sequence found")
+    
+    def get_term(self, n):
+        """
+        Return the nth value of the sequence. Starts at index 0.
+        """
+        retval = eval(self.equation.replace('x', str(n)))
+        if retval == int(retval):
+            return int(retval)
+        return retval
 
 def is_arithmetic(terms):
     """
