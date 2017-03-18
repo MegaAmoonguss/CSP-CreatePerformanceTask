@@ -5,7 +5,7 @@ class Polynomial:
     A class to model polynomial equations.
     """
     
-    def __init__(self, coeffs=None, points=None):
+    def __new__(self, coeffs=None, points=None):
         """
         Initialize the Polynomial object using either coefficients or 2/3 points on the line
         for 1st and 2nd degree polynomials (3 points to be added).

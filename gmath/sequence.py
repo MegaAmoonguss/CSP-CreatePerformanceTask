@@ -5,7 +5,7 @@ class Sequence:
     A class to model sequences.
     """
     
-    def __init__(self, terms):
+    def __new__(self, terms):
         """
         Initialize Sequence object by figuring out what kind of sequence the terms are a part of
         and the equation for the nth term.
