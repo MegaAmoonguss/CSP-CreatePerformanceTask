@@ -5,30 +5,24 @@ class Sequence:
     A class to model sequences.
     """
     
-    def __new__(self, terms):
+    def __init__(self, terms):
         """
         Initialize Sequence object by figuring out what kind of sequence the terms are a part of
         and the equation for the nth term.
-        0 = all values are equal
-        1 = arithmetic
-        2 = geometric
-        3 = quadratic
         """
         if len(terms) > 1 and terms[1:] == terms[:-1]:
-            type = 0
+            type = "equal"
             self.equation = str(terms[0])
         elif is_arithmetic(terms):
-            self.type = 1
-            # should probably implement this using the simple formula
-            p = Polynomial(points=((0, terms[0]), (1, terms[1])))
-            self.equation = f"{p.coeffs[0]} * x + {p.coeffs[1]}"
+            self.type = "arithmetic"
+            self.equation = f"{terms[0]} + (n - 1)**({terms[1] - terms[0]})"
         elif is_geometric(terms):
-            self.type = 2
-            # equation to be implemented
+            self.type = "geometric"
+            self.equation = f"{terms[0]} * ({terms[1] - terms[0]})**(n - 1)"
         elif is_quadratic(terms):
-            self.type = 3
-            p = Polynomial(points=((0, terms[0]), (1, terms[1]), (2, terms[2])))
-            self.equation = f"{p.coeffs[0]} * x**2 + {p.coeffs[1]} * x + {p.coeffs[2]}"
+            self.type = "quadratic"
+            p = Polynomial(points=((1, terms[0]), (2, terms[1]), (3, terms[2])))
+            self.equation = f"{p.coeffs[0]} * n**2 + {p.coeffs[1]} * n + {p.coeffs[2]}"
         else:
             raise ValueError("No sequence found")
     
@@ -36,7 +30,7 @@ class Sequence:
         """
         Return the nth value of the sequence. Starts at index 0.
         """
-        retval = eval(self.equation.replace('x', str(n)))
+        retval = eval(self.equation.replace('n', str(n)))
         if retval == int(retval):
             return int(retval)
         return retval
