@@ -33,13 +33,24 @@ class Polynomial:
             
             self.degree = len(self.coeffs) - 1
         else:
-            assert len(points) == 2, "Incorrect number of points."
+            assert len(points) in (2, 3), "Incorrect number of points."
             
             self.coeffs = []
-            self.coeffs.append((points[1][1] - points[0][1]) / (points[1][0] - points[0][0]))
-            self.coeffs.append(points[0][1] - (self.coeffs[0] * points[0][0]))
-            self.degree = 1
-        
+            x1, y1 = points[0]
+            x2, y2 = points[1]
+            
+            if len(points) == 2:
+                self.coeffs.append((y2 - y1) / (x2 - x1))
+                self.coeffs.append(y1 - (self.coeffs[0] * x1))
+                self.degree = 1
+            else:
+                x3, y3 = points[2]
+                
+                self.coeffs.append(((y1 * (x2 - x3)) + (y2 * (x3 - x1)) + (y3 * (x1 - x2))) / ((x1 - x2) * (x1 - x3) * (x2 - x3)));
+                self.coeffs.append(((y1 * ((x3 * x3) - (x2 * x2))) + (y2 * ((x1 * x1) - (x3 * x3))) + (y3 * ((x2 * x2) - (x1 * x1)))) / ((x1 - x2) * (x1 - x3) * (x2 - x3)));
+                self.coeffs.append(y1 - (x1 * x1 * self.coeffs[0]) - (x1 * self.coeffs[1]));
+                self.degree = 2
+    
     def factor(self):
         """
         Return a tuple (a, b, c, d, e) representing the factored form of the quadratic,
@@ -118,7 +129,8 @@ class Polynomial:
             
             if self.coeffs[-(i+1)] != 0:
                 if self.coeffs[-(i+1)] != 1 or i == 0:
-                    s += str(abs(self.coeffs[-(i+1)]))
+                    n = abs(self.coeffs[-(i+1)])
+                    s += str(int(n)) if n == int(n) else str(n)
                 if i > 0:
                     s += "x"
                     if i > 1:
