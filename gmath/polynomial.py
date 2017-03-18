@@ -49,7 +49,11 @@ class Polynomial:
                 self.coeffs.append(((y1 * (x2 - x3)) + (y2 * (x3 - x1)) + (y3 * (x1 - x2))) / ((x1 - x2) * (x1 - x3) * (x2 - x3)));
                 self.coeffs.append(((y1 * ((x3 * x3) - (x2 * x2))) + (y2 * ((x1 * x1) - (x3 * x3))) + (y3 * ((x2 * x2) - (x1 * x1)))) / ((x1 - x2) * (x1 - x3) * (x2 - x3)));
                 self.coeffs.append(y1 - (x1 * x1 * self.coeffs[0]) - (x1 * self.coeffs[1]));
-                self.degree = 2
+                
+                if self.coeffs[0] == 0:
+                    self.degree = 1
+                else:
+                    self.degree = 2
     
     def factor(self):
         """

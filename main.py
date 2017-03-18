@@ -1,10 +1,11 @@
 import sys
 import getopt
+import re
+import math
 import gmath
-from math import sqrt
 
 def usage():
-    print("Usage: main.py <operation> [input]")
+    print("Usage: python main.py <operation> [input]")
     print()
     print("Operations:")
     print("-f --factor          - returns the factors of the integer")
@@ -17,12 +18,14 @@ def usage():
     print("-l --lcm             - finds the lowest common multiple of two numbers")
     print("-q --quadratic       - returns a factored form of the quadratic with the")
     print("                       entered coefficients")
+    print("    --calcfunc       - calculates the equation of a line or quadratic going")
+    print("                       going through 2 or 3 given points")
     print()
     print("If input is more than one parameter, surround all parameters with double quotes.")
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hf:p:r:d:s:g:l:q:", ["help", "factor=", "prime-factor=", "reduce=", "decimal=", "fraction=", "square-root=", "gcd=", "lcm=", "quadratic="])
+        opts, args = getopt.getopt(sys.argv[1:], "hf:p:r:d:s:g:l:q:", ["help", "factor=", "prime-factor=", "reduce=", "decimal=", "fraction=", "square-root=", "gcd=", "lcm=", "quadratic=", "calcfunc="])
     except getopt.GetoptError:
         print("Invalid input, pass '--help' for usage.")
         sys.exit(2)
@@ -102,10 +105,10 @@ def main():
             if int(arg) == arg:
                 arg = int(arg)
             else:
-                print(f"The square root of {arg} is {sqrt(arg)}.")
+                print(f"The square root of {arg} is {math.sqrt(arg)}.")
                 continue
                 
-            root = sqrt(arg)
+            root = math.sqrt(arg)
             if int(root) == root:
                 print(f"The square root of {arg} is {int(root)}.")
                 continue
@@ -148,6 +151,23 @@ def main():
                 print(f"{str(p)} = {gmath.factored_str(factored)}")
             else:
                 print(f"{str(p)} is not factorable.")
+                
+        elif opt == "--calcfunc":
+            pts = arg.split()
+            
+            if not len(pts) in (2, 3):
+                print("Please enter two or three points in the format (x,y).")
+                sys.exit(2)
+                
+            pattern = re.compile("\([0-9]*,[0-9]*\)")
+            for i in range(len(pts)):
+                if not pattern.match(pts[i]):
+                    print("Please enter points in the format (x,y).")
+                    sys.exit(2)  
+                pts[i] = [int(n) for n in pts[i][1:-1].split(',')]
+            
+            p = gmath.Polynomial(points=pts)
+            print(p)
     
 if __name__ == "__main__":
     main()
