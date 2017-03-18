@@ -20,6 +20,8 @@ def usage():
     print("                       entered coefficients")
     print("    --calcfunc       - calculates the equation of a line or quadratic going")
     print("                       going through 2 or 3 given points")
+    print("    --sequence       - calculates the equation of a sequence given the first few terms")
+    print("                       needs 3 terms for arithmetic or geometric, 4 for quadratic")
     print()
     print("If input is more than one parameter, surround all parameters with double quotes.")
 
@@ -27,7 +29,17 @@ def main():
     # should make math functions straight arguments instead of options
     # leave options for things like file output
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hf:p:r:d:s:g:l:q:", ["help", "factor=", "prime-factor=", "reduce=", "decimal=", "fraction=", "square-root=", "gcd=", "lcm=", "quadratic=", "calcfunc="])
+        opts, args = getopt.getopt(sys.argv[1:], "hf:p:r:d:s:g:l:q:", ["help",
+                                                                       "factor=",
+                                                                       "prime-factor=",
+                                                                       "reduce=",
+                                                                       "decimal=", "fraction=",
+                                                                       "square-root=",
+                                                                       "gcd=",
+                                                                       "lcm=",
+                                                                       "quadratic=",
+                                                                       "calcfunc=",
+                                                                       "sequence="])
     except getopt.GetoptError:
         print("Invalid input, pass '--help' for usage.")
         sys.exit(2)
@@ -170,6 +182,20 @@ def main():
             
             p = gmath.Polynomial(points=pts)
             print(p)
+            
+        elif opt == "--sequence":
+            try:
+                terms = [int(t) for t in arg.split()]
+            except ValueError:
+                print("Invalid input.")
+                sys.exit(2)
+            
+            try:
+                s = gmath.Sequence(terms)
+            except ValueError:
+                print("No sequence found.")
+                sys.exit(2)
+            print(s.equation.replace("**", '^'))
     
 if __name__ == "__main__":
     main()

@@ -15,10 +15,10 @@ class Sequence:
             self.equation = str(terms[0])
         elif is_arithmetic(terms):
             self.type = "arithmetic"
-            self.equation = f"{terms[0]} + (n - 1)**({terms[1] - terms[0]})"
+            self.equation = f"{terms[0]} + (n - 1) * {terms[1] - terms[0]}"
         elif is_geometric(terms):
             self.type = "geometric"
-            self.equation = f"{terms[0]} * ({terms[1] - terms[0]})**(n - 1)"
+            self.equation = f"{terms[0]} * {terms[1] - terms[0]}**(n - 1)"
         elif is_quadratic(terms):
             self.type = "quadratic"
             p = Polynomial(points=((1, terms[0]), (2, terms[1]), (3, terms[2])))
