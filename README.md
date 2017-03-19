@@ -1,5 +1,6 @@
 # GMath-py
-Most of GMath's major functions in Python.
+The old GMath Java library reworked and greatly improved. Some important functions still have to be added.
+
 ## Install
 To install, download the source and run:
 ```
