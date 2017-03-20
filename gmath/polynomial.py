@@ -1,3 +1,4 @@
+import math
 from gmath import factoring
 
 class Polynomial:
@@ -73,7 +74,7 @@ class Polynomial:
             assert isinstance(c, int), "Non-integer coefficient."
         
         coeffs = list(self.coeffs)
-        constant = factoring.gcd(factoring.gcd(coeffs[0], coeffs[1]), coeffs[2])
+        constant = math.gcd(math.gcd(coeffs[0], coeffs[1]), coeffs[2])
         
         for i in range(len(coeffs)):
             coeffs[i] = int(coeffs[i] / constant)
@@ -99,7 +100,7 @@ class Polynomial:
         if not factorable:
             return None
         
-        divisors = [factoring.gcd(expanded[0], expanded[1]), factoring.gcd(expanded[2], expanded[3])]
+        divisors = [math.gcd(expanded[0], expanded[1]), math.gcd(expanded[2], expanded[3])]
         if expanded[0] < 0:
             divisors[0] *= -1
         if expanded[2] < 0:

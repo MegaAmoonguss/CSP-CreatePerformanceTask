@@ -120,5 +120,35 @@ def gcd(a, b):
     divisor = math.gcd(a, b)
     click.echo(f"The greatest common divisor of {a} and {b} is {divisor}.")
     
+@cli.command()
+@click.argument('a')
+@click.argument('b')
+def lcm(a, b):
+    try:
+        a = int(a)
+        b = int(b)
+    except ValueError:
+        click.echo("Please enter two integers.", err=True)
+        sys.exit(2)
+        
+    multiple = gmath.lcm(a, b)
+    click.echo(f"The least common multiple of {a} and {b} is {multiple}.")
+    
+@cli.command()
+@click.argument("coeffs", nargs=3)
+def quadratic(coeffs):
+    try:
+        a, b, c = [int(n) for n in coeffs]
+    except ValueError:
+        click.echo("Please enter three integers.", err=True)
+        sys.exit(2)
+        
+    p = gmath.Polynomial([a, b, c])
+    factored = p.factor()
+    if factored:
+        click.echo(f"{str(p)} = {gmath.factored_str(factored)}")
+    else:
+        click.echo(f"{str(p)} is not factorable.")
+    
 if __name__ == "__main__":
     cli()
