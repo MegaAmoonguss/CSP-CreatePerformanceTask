@@ -1,4 +1,5 @@
 import sys
+import re
 import click
 import math
 import gmath
@@ -149,6 +150,24 @@ def quadratic(coeffs):
         click.echo(f"{str(p)} = {gmath.factored_str(factored)}")
     else:
         click.echo(f"{str(p)} is not factorable.")
+        
+@cli.command()
+@click.argument("points", nargs=-1)
+def calcfunction(points):
+    if not len(points) in (2, 3):
+        click.echo("Please enter two or three points in the format (x,y).", err=True)
+        sys.exit(2)
+    
+    formatted = [None for _ in points]
+    pattern = re.compile("\(-?[0-9]*,-?[0-9]*\)")
+    for i in range(len(points)):
+        if not pattern.match(points[i]):
+            click.echo("Please enter points in the format (x,y).", err=True)
+            sys.exit(2)  
+        formatted[i] = [int(n) for n in points[i][1:-1].split(',')]
+    
+    p = gmath.Polynomial(points=formatted)
+    click.echo(p)
     
 if __name__ == "__main__":
     cli()
