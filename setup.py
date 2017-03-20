@@ -6,6 +6,7 @@ setup(name="gmath",
       author="Graham Preston",
       author_email="graham.preston@gmail.com",
       packages=["gmath"],
+      py_modules=["commands.py"],
       install_requires=["click"],
       entry_points="""
       [console_scripts]
