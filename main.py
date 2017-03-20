@@ -19,7 +19,7 @@ def usage():
     print("-q --quadratic       - returns a factored form of the quadratic with the")
     print("                       entered coefficients")
     print("    --calcfunc       - calculates the equation of a line or quadratic going")
-    print("                       going through 2 or 3 given points")
+    print("                       through 2 or 3 given points")
     print("    --sequence       - calculates the equation of a sequence given the first few terms")
     print("                       needs 3 terms for arithmetic or geometric, 4 for quadratic")
     print()

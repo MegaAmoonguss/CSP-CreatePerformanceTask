@@ -63,6 +63,7 @@ def reduce(fraction):
 @cli.command()
 @click.argument("fraction")
 def decimal(fraction):
+    """Returns the decimal form of a fraction a/b"""
     try:
         a, b = [int(n) for n in fraction.split('/')]
     except ValueError:
@@ -86,6 +87,7 @@ def fraction(decimal):
 @cli.command()
 @click.argument('n')
 def sqrt(n):
+    """Gives the exact square root of a number"""
     try:
         n = float(n)
         if int(n) == n:
@@ -125,6 +127,7 @@ def gcd(a, b):
 @click.argument('a')
 @click.argument('b')
 def lcm(a, b):
+    """Finds the lowest common multiple of two numbers"""
     try:
         a = int(a)
         b = int(b)
@@ -138,6 +141,7 @@ def lcm(a, b):
 @cli.command()
 @click.argument("coeffs", nargs=3)
 def quadratic(coeffs):
+    """Returns a factored form of the quadratic with the entered coefficients"""
     try:
         a, b, c = [int(n) for n in coeffs]
     except ValueError:
@@ -154,6 +158,7 @@ def quadratic(coeffs):
 @cli.command()
 @click.argument("points", nargs=-1)
 def calcfunction(points):
+    """Calculates the equation of a line or quadratic going through 2 or 3 given points"""
     if not len(points) in (2, 3):
         click.echo("Please enter two or three points in the format (x,y).", err=True)
         sys.exit(2)
