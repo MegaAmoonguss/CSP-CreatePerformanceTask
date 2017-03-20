@@ -1,4 +1,4 @@
-# GMath-py
+# GMath
 The old GMath Java library reworked and greatly improved. Some important functions still have to be added.
 
 ## Install
