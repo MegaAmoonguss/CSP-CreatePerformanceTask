@@ -31,6 +31,10 @@ $ gmath quadratic -- 5 -5 -360
 5x^2 - 5x - 360 = 5(x - 9)(x + 8)
 ```
 If you do this, make sure to enter any options before `--`.
+Example:
+```
+$ gmath quadratic -o output.txt quadratic -- 5 -5 -360
+```
 
 ## To do
 * Add various options, such as file output
