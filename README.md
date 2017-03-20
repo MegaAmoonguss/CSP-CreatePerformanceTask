@@ -13,7 +13,7 @@ To get started, run:
 ```
 $ gmath --help
 ```
-Usage example:
+Example:
 ```
 $ gmath fraction 0.08(3)
 0.08(3) = 1/12
