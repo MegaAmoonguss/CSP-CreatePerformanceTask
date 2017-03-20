@@ -8,8 +8,5 @@ setup(name="gmath",
       packages=["gmath"],
       py_modules=["commands"],
       install_requires=["click"],
-      entry_points="""
-      [console_scripts]
-      gmath=commands:cli
-      """
+      entry_points={"console_scripts": "gmath=commands:cli"}
       )
