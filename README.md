@@ -7,6 +7,10 @@ To install, download the source and run:
 $ pip install .
 ```
 Pass `--upgrade` to upgrade.
+If you want to edit GMath as you use it, install it by running:
+```
+$ pip install --editable .
+```
 
 ## Usage
 To get started, run:
