@@ -8,7 +8,7 @@ setup(name="gmath",
       packages=["gmath"],
       install_requires=["click"],
       entry_points="""
-          [console_scripts]
-          gmath=commands:cli
+      [console_scripts]
+      gmath=commands:cli
       """
       )
