@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 
 setup(name="gmath",
       description="A practical mini math library/CLI",
