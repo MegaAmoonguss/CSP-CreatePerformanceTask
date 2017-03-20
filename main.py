@@ -26,8 +26,6 @@ def usage():
     print("If input is more than one parameter, surround all parameters with double quotes.")
 
 def main():
-    # should make math functions straight arguments instead of options
-    # leave options for things like file output
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hf:p:r:d:s:g:l:q:", ["help",
                                                                        "factor=",
@@ -137,7 +135,7 @@ def main():
                 print("Please enter two integers.")
                 sys.exit(2)
                 
-            divisor = gmath.factoring.gcd(a, b)
+            divisor = math.gcd(a, b)
             
             print(f"The greatest common divisor of {a} and {b} is {divisor}.")
         

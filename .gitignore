@@ -94,6 +94,3 @@ ENV/
 
 # Test module
 test.py
-
-# Start script
-gmath-py.bat

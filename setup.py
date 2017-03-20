@@ -7,4 +7,9 @@ setup(name="GMath-py",
       url="https://github.com/MegaAmoonguss/GMath-py",
       author="Graham Preston",
       author_email="graham.preston@gmail.com",
-      packages=["gmath"])
+      packages=["gmath"],
+      install_requires=["click"],
+      entry_points="""
+          [console_scripts]
+          gmath-py=commands:cli
+      """)

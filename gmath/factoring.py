@@ -1,19 +1,5 @@
 import math
 
-def gcd(a, b):
-    """
-    Return the greatest common divisor of two integers.
-    
-    Example:
-    gcd(6, 8)    # 2
-    """
-    assert isinstance(a, int) and isinstance(b, int), "Non-integer parameter."
-    
-    if b == 0:
-        return abs(a)
-    else:
-        return gcd(b, a % b)
-
 def lcm(a, b):
     """
     Return the lowest common multiple of two integers.
@@ -23,7 +9,7 @@ def lcm(a, b):
     """
     assert isinstance(a, int) and isinstance(b, int), "Non-integer parameter."
     
-    return int(abs(a * b) / gcd(a, b))
+    return int(abs(a * b) / math.gcd(a, b))
             
 def factor(n):
     """

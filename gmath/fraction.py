@@ -1,6 +1,5 @@
 import math
 import re
-from gmath import factoring
 
 # May be able to get rid of tihs module and just use the fractions module instead
 def reduce(a, b):
@@ -20,7 +19,7 @@ def reduce(a, b):
     a = int(a * (10**decimals))
     b = int(b * (10**decimals))
     
-    divisor = factoring.gcd(a, b)
+    divisor = math.gcd(a, b)
     reduced = (int(a / divisor), (int(b / divisor)))
         
     return reduced
