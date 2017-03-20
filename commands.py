@@ -186,7 +186,8 @@ def calcfunction(points):
 def sequence(terms):
     """
     Calculates the equation of a sequence given the first few terms.
-    Needs 3 terms for arithmetic or geometric, 4 for quadratic.
+    To correctly identify an arithmetic or geometric sequence, 3 terms
+    are needed, for a quadratic sequence, 4 terms are needed.
     """
     try:
         terms = [int(t) for t in terms]
