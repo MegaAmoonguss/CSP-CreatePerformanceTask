@@ -198,7 +198,7 @@ def calcfunction(config, points):
         formatted[i] = [int(n) for n in points[i][1:-1].split(',')]
     
     p = gmath.Polynomial(points=formatted)
-    click.echo(p, file=config.out)
+    click.echo(f"y = {p}", file=config.out)
 
 @cli.command()
 @click.argument("terms", nargs=-1)
