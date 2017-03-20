@@ -29,4 +29,5 @@ $ gmath quadratic -- 5 -5 -360
 If you do this, make sure to enter any options before `--`.
 
 ## To do
-* More features that I have yet to come up with
+* Add various options, such as file output
+* Some way to get the nth term of a sequence
