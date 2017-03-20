@@ -1,7 +1,6 @@
 import math
 import re
 
-# May be able to get rid of tihs module and just use the fractions module instead
 def reduce(a, b):
     """
     Return the reduced version of the fraction a/b as a tuple.
