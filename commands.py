@@ -183,7 +183,7 @@ def calcfunction(points):
 
 @cli.command()
 @click.argument("terms", nargs=-1)
-def sequence(terms):
+def sequence(terms, type, equation):
     """
     Calculates the equation of a sequence given the first few terms.
     To correctly identify an arithmetic or geometric sequence, 3 terms
@@ -200,7 +200,10 @@ def sequence(terms):
     except ValueError:
         click.echo("No sequence found.")
         sys.exit(2)
-    click.echo(s.equation.replace("**", '^'))
+    if type:
+        click.echo(f"Sequence type: {s.type}")
+    if equation:
+        click.echo(f"Equation: {s.equation.replace('**', '^')}")
     
 if __name__ == "__main__":
     cli()
