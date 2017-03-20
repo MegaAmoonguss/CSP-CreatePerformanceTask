@@ -11,7 +11,7 @@ def cli():
 @cli.command()
 @click.argument('n')
 def factor(n):
-    """Returns the factors of an integer"""
+    """Returns the factors of an integer."""
     try:
         int(n)
     except ValueError:
@@ -25,7 +25,7 @@ def factor(n):
 @cli.command()
 @click.argument('n')
 def primefactor(n):
-    """Returns the prime factorization of an integer"""
+    """Returns the prime factorization of an integer."""
     try:
         int(n)
     except ValueError:
@@ -44,7 +44,7 @@ def primefactor(n):
 @cli.command()
 @click.argument("fraction")
 def reduce(fraction):
-    """Reduces a given fraction in the form a/b"""
+    """Reduces a given fraction in the form a/b."""
     try:
         a, b = [float(n) for n in fraction.split('/')]
         
@@ -63,7 +63,7 @@ def reduce(fraction):
 @cli.command()
 @click.argument("fraction")
 def decimal(fraction):
-    """Returns the decimal form of a fraction a/b"""
+    """Returns the decimal form of a fraction a/b."""
     try:
         a, b = [int(n) for n in fraction.split('/')]
     except ValueError:
@@ -76,7 +76,7 @@ def decimal(fraction):
 @cli.command()
 @click.argument("decimal")
 def fraction(decimal):
-    """Returns the fraction form a decimal, including repeating"""
+    """Returns the fraction form a decimal, including repeating."""
     try:
         frac = gmath.fraction(decimal)
     except AssertionError:
@@ -87,7 +87,7 @@ def fraction(decimal):
 @cli.command()
 @click.argument('n')
 def sqrt(n):
-    """Gives the exact square root of a number"""
+    """Gives the exact square root of a number."""
     try:
         n = float(n)
         if int(n) == n:
@@ -112,7 +112,7 @@ def sqrt(n):
 @click.argument('a')
 @click.argument('b')
 def gcd(a, b):
-    """Finds the greatest common divisor of two numbers"""
+    """Finds the greatest common divisor of two numbers."""
     try:
         a = int(a)
         b = int(b)
@@ -127,7 +127,7 @@ def gcd(a, b):
 @click.argument('a')
 @click.argument('b')
 def lcm(a, b):
-    """Finds the lowest common multiple of two numbers"""
+    """Finds the lowest common multiple of two numbers."""
     try:
         a = int(a)
         b = int(b)
@@ -139,11 +139,15 @@ def lcm(a, b):
     click.echo(f"The least common multiple of {a} and {b} is {multiple}.")
     
 @cli.command()
-@click.argument("coeffs", nargs=3)
-def quadratic(coeffs):
-    """Returns a factored form of the quadratic with the entered coefficients"""
+@click.argument('a')
+@click.argument('b')
+@click.argument('c')
+def quadratic(a, b, c):
+    """Returns a factored form of the quadratic with the entered coefficients."""
     try:
-        a, b, c = [int(n) for n in coeffs]
+        a = int(a)
+        b = int(b)
+        c = int(c)
     except ValueError:
         click.echo("Please enter three integers.", err=True)
         sys.exit(2)
@@ -158,7 +162,10 @@ def quadratic(coeffs):
 @cli.command()
 @click.argument("points", nargs=-1)
 def calcfunction(points):
-    """Calculates the equation of a line or quadratic going through 2 or 3 given points"""
+    """
+    Calculates the equation of a line or quadratic going through
+    2 or 3 given points.
+    """
     if not len(points) in (2, 3):
         click.echo("Please enter two or three points in the format (x,y).", err=True)
         sys.exit(2)
@@ -173,6 +180,26 @@ def calcfunction(points):
     
     p = gmath.Polynomial(points=formatted)
     click.echo(p)
+
+@cli.command()
+@click.argument("terms", nargs=-1)
+def sequence(terms):
+    """
+    Calculates the equation of a sequence given the first few terms.
+    Needs 3 terms for arithmetic or geometric, 4 for quadratic.
+    """
+    try:
+        terms = [int(t) for t in terms]
+    except ValueError:
+        click.echo("Invalid input.", err=True)
+        sys.exit(2)
+    
+    try:
+        s = gmath.Sequence(terms)
+    except ValueError:
+        click.echo("No sequence found.")
+        sys.exit(2)
+    click.echo(s.equation.replace("**", '^'))
     
 if __name__ == "__main__":
     cli()
