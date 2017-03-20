@@ -8,6 +8,17 @@ $ pip install .
 ```
 Pass `--upgrade` to upgrade.
 
+## Usage
+To get started, run:
+```
+$ gmath --help
+```
+Example:
+```
+$ gmath fraction 0.08(3)
+0.08(3) = 1/12
+```
+
 ## To do
 * Add ability to recognize and calculate equations of arithmetic, geometric, and quadratic sequences
 * Change command line programming to click
