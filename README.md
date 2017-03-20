@@ -29,5 +29,4 @@ $ gmath quadratic -- 5 -5 -360
 If you do this, make sure to enter any options before `--`.
 
 ## To do
-* Add ability to recognize and calculate equations of arithmetic, geometric, and quadratic sequences
-* Change command line programming to click
+* More features that I have yet to come up with
