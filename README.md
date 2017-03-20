@@ -10,4 +10,4 @@ Pass `--upgrade` to upgrade.
 
 ## To do
 * Add ability to recognize and calculate equations of arithmetic, geometric, and quadratic sequences
-* Change functions to straight arguments instead of operations, leave operations for other features like possibly file output, logging, etc
+* Change command line programming to click
