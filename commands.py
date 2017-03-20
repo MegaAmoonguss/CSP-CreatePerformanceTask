@@ -104,6 +104,21 @@ def sqrt(n):
         unformatted_root = gmath.simplify_radical(n)
         formatted_root = str(unformatted_root[0]) + " * sqrt(" + str(unformatted_root[1]) + ")"
         click.echo(f"The square root of {n} is {formatted_root}.")
+        
+@cli.command()
+@click.argument('a')
+@click.argument('b')
+def gcd(a, b):
+    """Finds the greatest common divisor of two numbers"""
+    try:
+        a = int(a)
+        b = int(b)
+    except ValueError:
+        click.echo("Please enter two integers.", err=True)
+        sys.exit(2)
+        
+    divisor = math.gcd(a, b)
+    click.echo(f"The greatest common divisor of {a} and {b} is {divisor}.")
     
 if __name__ == "__main__":
     cli()
