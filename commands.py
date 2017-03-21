@@ -161,10 +161,11 @@ def calcfunction(config, points):
     click.echo(f"y = {p}", file=config.out)
 
 @cli.command()
-@click.option("-n", type=int, default=-1, help="Get the nth term of the sequence.")
+@click.option("-t", "--term", type=int, default=0, help="Get the nth term of the sequence.")
+@click.option("-n", "--next", type=int, default=0, help="Get the next n terms of the sequence.")
 @click.argument("terms", nargs=-1, type=int)
 @pass_config
-def sequence(config, n, terms):
+def sequence(config, term, next, terms):
     """
     Calculates the equation of a sequence given the first few terms.
     To correctly identify an arithmetic or geometric sequence, 3 terms
@@ -178,8 +179,13 @@ def sequence(config, n, terms):
     
     click.echo(f"Sequence type: {s.type}", file=config.out)
     click.echo(f"Equation: {s.equation}", file=config.out)
-    if n >= 0:
-        click.echo(f"Term {n} of sequence: {s.get_term(n)}")
+    if term > 0:
+        click.echo(f"Term {term} of sequence: {s.get_term(term)}")
+    if next > 0:
+        next_s = ""
+        for i in range(1, next + 1):
+            next_s += str(s.get_term(i + len(terms))) + ", "
+        click.echo(f"The next {next} terms of the sequence: {next_s[:-2]}")
     
 if __name__ == "__main__":
     cli()
