@@ -18,31 +18,19 @@ def cli(config, out):
     config.out = out
 
 @cli.command()
-@click.argument('n')
+@click.argument('n', type=int)
 @pass_config
 def factor(config, n):
     """Returns the factors of an integer."""
-    try:
-        int(n)
-    except ValueError:
-        click.echo("Please enter an integer.", err=True)
-        sys.exit(2)
-    
     factors = gmath.factor(int(n))
     
     click.echo(f"The factors of {n} are {factors}.", file=config.out)
     
 @cli.command()
-@click.argument('n')
+@click.argument('n', type=int)
 @pass_config
 def primefactor(config, n):
     """Returns the prime factorization of an integer."""
-    try:
-        int(n)
-    except ValueError:
-        click.echo("Please enter an integer.", err=True)
-        sys.exit(2)
-    
     pfactors = gmath.prime_factor(int(n))
     
     factorization = ""
@@ -99,19 +87,13 @@ def fraction(config, decimal):
     click.echo(f"{decimal} = {frac[0]}/{frac[1]}", file=config.out)
     
 @cli.command()
-@click.argument('n')
+@click.argument('n', type=float)
 @pass_config
 def sqrt(config, n):
-    """Gives the exact square root of a number."""
-    try:
-        n = float(n)
-        if int(n) == n:
-            n = int(n)
-    except ValueError:
-        click.echo("Please enter a number.", err=True)
-        sys.exit(2)
-        
-    if not isinstance(n, int):
+    """Gives the square root of a number."""
+    if n == int(n):
+        n = int(n)
+    else:
         click.echo(f"The square root of {n} is {math.sqrt(n)}.", file=config.out)
         sys.exit(0)
         
@@ -124,52 +106,30 @@ def sqrt(config, n):
         click.echo(f"The square root of {n} is {formatted_root}.", file=config.out)
         
 @cli.command()
-@click.argument('a')
-@click.argument('b')
+@click.argument('a', type=int)
+@click.argument('b', type=int)
 @pass_config
 def gcd(config, a, b):
-    """Finds the greatest common divisor of two numbers."""
-    try:
-        a = int(a)
-        b = int(b)
-    except ValueError:
-        click.echo("Please enter two integers.", err=True)
-        sys.exit(2)
-        
+    """Finds the greatest common divisor of two numbers."""   
     divisor = math.gcd(a, b)
     click.echo(f"The greatest common divisor of {a} and {b} is {divisor}.", file=config.out)
     
 @cli.command()
-@click.argument('a')
-@click.argument('b')
+@click.argument('a', type=int)
+@click.argument('b', type=int)
 @pass_config
 def lcm(config, a, b):
     """Finds the lowest common multiple of two numbers."""
-    try:
-        a = int(a)
-        b = int(b)
-    except ValueError:
-        click.echo("Please enter two integers.", err=True)
-        sys.exit(2)
-        
     multiple = gmath.lcm(a, b)
     click.echo(f"The least common multiple of {a} and {b} is {multiple}.", file=config.out)
     
 @cli.command()
-@click.argument('a')
-@click.argument('b')
-@click.argument('c')
+@click.argument('a', type=int)
+@click.argument('b', type=int)
+@click.argument('c', type=int)
 @pass_config
 def quadratic(config, a, b, c):
     """Returns a factored form of the quadratic with the entered coefficients."""
-    try:
-        a = int(a)
-        b = int(b)
-        c = int(c)
-    except ValueError:
-        click.echo("Please enter three integers.", err=True)
-        sys.exit(2)
-        
     p = gmath.Polynomial([a, b, c])
     factored = p.factor()
     if factored:
@@ -201,20 +161,15 @@ def calcfunction(config, points):
     click.echo(f"y = {p}", file=config.out)
 
 @cli.command()
-@click.argument("terms", nargs=-1)
+@click.option("-n", type=int, default=-1, help="Get the nth term of the sequence.")
+@click.argument("terms", nargs=-1, type=int)
 @pass_config
-def sequence(config, terms):
+def sequence(config, n, terms):
     """
     Calculates the equation of a sequence given the first few terms.
     To correctly identify an arithmetic or geometric sequence, 3 terms
     are needed, for a quadratic sequence, 4 terms are needed.
     """
-    try:
-        terms = [int(t) for t in terms]
-    except ValueError:
-        click.echo("Invalid input.", err=True)
-        sys.exit(2)
-    
     try:
         s = gmath.Sequence(terms)
     except ValueError:
@@ -223,6 +178,8 @@ def sequence(config, terms):
     
     click.echo(f"Sequence type: {s.type}", file=config.out)
     click.echo(f"Equation: {s.equation.replace('**', '^')}", file=config.out)
+    if n >= 0:
+        click.echo(f"Term {n} of sequence: {s.get_term(n)}")
     
 if __name__ == "__main__":
     cli()
