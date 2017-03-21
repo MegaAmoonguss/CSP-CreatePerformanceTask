@@ -1,5 +1,5 @@
 # GMath
-The old GMath Java library reworked and greatly improved. Some important functions still have to be added.
+The old GMath Java library reworked and greatly improved. Some important functions still have to be added. GMath uses Python 3.6, so make sure you have that installed and use the 3.6 version of pip while installing.
 
 ## Install
 To install, download the source and run:
