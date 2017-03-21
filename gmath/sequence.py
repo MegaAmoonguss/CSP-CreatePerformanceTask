@@ -16,13 +16,16 @@ class Sequence:
         elif is_arithmetic(terms):
             self.type = "arithmetic"
             self.equation = f"{terms[0]} + (n - 1) * {terms[1] - terms[0]}"
+            self.disp_equation = self.equation.replace("**", '^')
         elif is_geometric(terms):
             self.type = "geometric"
             self.equation = f"{terms[0]} * {terms[1] - terms[0]}**(n - 1)"
+            self.disp_equation = self.equation.replace("**", '^')
         elif is_quadratic(terms):
             self.type = "quadratic"
             p = Polynomial(points=((1, terms[0]), (2, terms[1]), (3, terms[2])))
             self.equation = f"{p.coeffs[0]} * n**2 + {p.coeffs[1]} * n + {p.coeffs[2]}"
+            self.disp_equation = str(p)
         else:
             raise ValueError("No sequence found")
     

@@ -177,7 +177,7 @@ def sequence(config, n, terms):
         sys.exit(2)
     
     click.echo(f"Sequence type: {s.type}", file=config.out)
-    click.echo(f"Equation: {s.equation.replace('**', '^')}", file=config.out)
+    click.echo(f"Equation: {s.disp_equation}", file=config.out)
     if n >= 0:
         click.echo(f"Term {n} of sequence: {s.get_term(n)}")
     
