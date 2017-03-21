@@ -1,3 +1,4 @@
+import sympy
 from gmath import Polynomial
 
 class Sequence:
@@ -10,22 +11,20 @@ class Sequence:
         Initialize Sequence object by figuring out what kind of sequence the terms are a part of
         and the equation for the nth term.
         """
+        self.t = sympy.symbols('t')
         if len(terms) > 1 and terms[1:] == terms[:-1]:
-            type = "equal"
+            type = "constant"
             self.equation = str(terms[0])
         elif is_arithmetic(terms):
             self.type = "arithmetic"
-            self.equation = f"{terms[0]} + (n - 1) * {terms[1] - terms[0]}"
-            self.disp_equation = self.equation.replace("**", '^')
+            self.equation = terms[0] + (self.t - 1) * (terms[1] - terms[0])
         elif is_geometric(terms):
             self.type = "geometric"
-            self.equation = f"{terms[0]} * {terms[1] - terms[0]}**(n - 1)"
-            self.disp_equation = self.equation.replace("**", '^')
+            self.equation = terms[0] * (terms[1] - terms[0])**(self.t - 1)
         elif is_quadratic(terms):
             self.type = "quadratic"
             p = Polynomial(points=((1, terms[0]), (2, terms[1]), (3, terms[2])))
-            self.equation = f"{p.coeffs[0]} * n**2 + {p.coeffs[1]} * n + {p.coeffs[2]}"
-            self.disp_equation = str(p)
+            self.equation = p.coeffs[0] * self.t**2 + p.coeffs[1] * self.t + p.coeffs[2]
         else:
             raise ValueError("No sequence found")
     
@@ -33,7 +32,7 @@ class Sequence:
         """
         Return the nth value of the sequence. Starts at index 0.
         """
-        retval = eval(self.equation.replace('n', str(n)))
+        retval = self.equation.subs(self.t, n)
         if retval == int(retval):
             return int(retval)
         return retval
