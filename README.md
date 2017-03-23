@@ -37,5 +37,4 @@ $ gmath quadratic -o output.txt quadratic -- 5 -5 -360
 ```
 
 ## To do
-* Add various options, such as file output
-* Some way to get the nth term of a sequence
+* Tons more cool stuff
