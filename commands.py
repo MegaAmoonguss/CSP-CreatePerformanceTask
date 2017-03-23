@@ -90,7 +90,7 @@ def fraction(config, decimal):
 @click.argument('n', type=float)
 @pass_config
 def sqrt(config, n):
-    """Gives the square root of a number."""
+    """Gives the exact square root of a number."""
     if n == int(n):
         n = int(n)
     else:
