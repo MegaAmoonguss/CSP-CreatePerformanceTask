@@ -36,7 +36,7 @@ def primefactor(config, n):
     factorization = ""
     for f in pfactors:
         factorization += str(f) + ' * '
-    factorization = factorization[:-2]
+    factorization = factorization[:-3]
     
     click.echo(f"The prime factorization of {n} is {factorization}.", file=config.out)
     
