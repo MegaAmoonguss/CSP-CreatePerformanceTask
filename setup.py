@@ -6,7 +6,7 @@ sympy_spec = importlib.util.find_spec("sympy")
 if sympy_spec is None:
     sys.exit("SymPy must be installed, download it at https://github.com/sympy/sympy/releases.")
 
-if sys.version_info() < (3, 6):
+if sys.version_info < (3, 6):
     sys.exit("Python < 3.6 is not supported.")
 
 setup(name="gmath",
