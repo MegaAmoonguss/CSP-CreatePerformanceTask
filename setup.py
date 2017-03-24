@@ -4,8 +4,10 @@ from setuptools import setup
 try:
     import sympy #@UnusedImport
 except ModuleNotFoundError:
-    print("SymPy must be installed, download it at https://github.com/sympy/sympy/releases.")
-    sys.exit(1)
+    sys.exit("SymPy must be installed, download it at https://github.com/sympy/sympy/releases.")
+
+if sys.version_info() < (3, 6):
+    sys.exit("Python < 3.6 is not supported.")
 
 setup(name="gmath",
       description="A practical mini math library/CLI",
