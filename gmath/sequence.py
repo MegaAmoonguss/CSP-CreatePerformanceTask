@@ -27,7 +27,8 @@ class Sequence:
         elif is_quadratic(terms):
             self.type = "quadratic"
             p = Polynomial(points=((1, terms[0]), (2, terms[1]), (3, terms[2])))
-            self.equation = p.coeffs[0] * self.t**2 + p.coeffs[1] * self.t + p.coeffs[2]
+            seq_coeffs = [int(c) for c in p.coeffs if int(c) == c]
+            self.equation = seq_coeffs[0] * self.t**2 + seq_coeffs[1] * self.t + seq_coeffs[2]
         else:
             raise ValueError("No sequence found")
     
