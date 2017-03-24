@@ -1,6 +1,7 @@
 import sympy
 from gmath import Polynomial
 
+
 class Sequence:
     """
     A class to model sequences.
@@ -41,6 +42,7 @@ class Sequence:
             return int(retval)
         return retval
 
+
 def is_arithmetic(terms):
     """
     Checks if given terms make up an arithmetic sequence. Length of terms must be at least 3.
@@ -54,6 +56,7 @@ def is_arithmetic(terms):
             return False
     return True
 
+
 def is_geometric(terms):
     """
     Checks if given terms make up a geometric sequence. Length of terms must be at least 3.
@@ -66,6 +69,7 @@ def is_geometric(terms):
         if terms[i] / terms[i - 1] != d:
             return False
     return True
+
 
 def is_quadratic(terms):
     """

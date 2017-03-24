@@ -1,9 +1,9 @@
 import sys
+import importlib
 from setuptools import setup
 
-try:
-    import sympy #@UnusedImport
-except ModuleNotFoundError:
+sympy_spec = importlib.util.find_spec("sympy")
+if sympy_spec is None:
     sys.exit("SymPy must be installed, download it at https://github.com/sympy/sympy/releases.")
 
 if sys.version_info() < (3, 6):
@@ -16,6 +16,6 @@ setup(name="gmath",
       author_email="graham.preston@gmail.com",
       packages=["gmath"],
       py_modules=["commands"],
-      install_requires=["click"],
+      install_requires=["click", "sympy"],
       entry_points={"console_scripts": "gmath=commands:cli"}
       )

@@ -1,6 +1,7 @@
 import math
 import re
 
+
 def reduce(a, b):
     """
     Return the reduced version of the fraction a/b as a tuple.
@@ -23,6 +24,7 @@ def reduce(a, b):
         
     return reduced
 
+
 def repeating_decimal(a, b):
     """
     Return the decimal representation of the fraction a/b as a string,
@@ -34,8 +36,8 @@ def repeating_decimal(a, b):
     divided = []
     denom = b
 
-    b = math.floor(a / denom);
-    decimal = str(b) + ".";
+    b = math.floor(a / denom)
+    decimal = str(b) + "."
 
     while a % denom != 0:
         a = (a - (b * denom)) * 10
@@ -46,10 +48,11 @@ def repeating_decimal(a, b):
             decimal = decimal[0:index] + "(" + decimal[index:] + ")"
             break
         
-        divided.append(a);
-        decimal += str(b);
+        divided.append(a)
+        decimal += str(b)
 
-    return decimal;
+    return decimal
+
 
 def fraction(dec):
     """
@@ -68,7 +71,7 @@ def fraction(dec):
     else:
         assert isinstance(dec, float), "Invalid decimal format."
     
-    if not '(' in dec:
+    if '(' not in dec:
         dec = float(dec)
         
     if isinstance(dec, float):

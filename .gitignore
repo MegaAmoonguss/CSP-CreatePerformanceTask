@@ -92,6 +92,9 @@ ENV/
 .project
 .pydevproject
 
+# PyCharm project settings
+.idea/
+
 # Ignored modules
 test.py
 bot.py

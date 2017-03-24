@@ -1,11 +1,12 @@
 import math
 from gmath import factoring
 
+
 class Polynomial:
     """
     A class to model polynomial equations.
     """
-    
+
     def __init__(self, coeffs=None, points=None):
         """
         Initialize the Polynomial object using either coefficients or 2/3 points on the line
@@ -19,43 +20,45 @@ class Polynomial:
         p = Polynomial(points=[(0, 0), (1, 2)]    # Equivalent to 2x
         """
         assert bool(coeffs) ^ bool(points), "Invalid parameters."
-        
+
         if coeffs:
             for c in coeffs:
                 assert isinstance(c, int), "Non-integer coefficient."
-            
+
             self.coeffs = []
             for i in range(len(coeffs)):
                 if coeffs[i] != 0:
                     self.coeffs = coeffs[i:]
                     break
-            
+
             assert self.coeffs, "Empty coefficients."
-            
+
             self.degree = len(self.coeffs) - 1
         else:
             assert len(points) in (2, 3), "Incorrect number of points."
-            
+
             self.coeffs = []
             x1, y1 = points[0]
             x2, y2 = points[1]
-            
+
             if len(points) == 2:
                 self.coeffs.append((y2 - y1) / (x2 - x1))
                 self.coeffs.append(y1 - (self.coeffs[0] * x1))
                 self.degree = 1
             else:
                 x3, y3 = points[2]
-                
-                self.coeffs.append(((y1 * (x2 - x3)) + (y2 * (x3 - x1)) + (y3 * (x1 - x2))) / ((x1 - x2) * (x1 - x3) * (x2 - x3)));
-                self.coeffs.append(((y1 * ((x3 * x3) - (x2 * x2))) + (y2 * ((x1 * x1) - (x3 * x3))) + (y3 * ((x2 * x2) - (x1 * x1)))) / ((x1 - x2) * (x1 - x3) * (x2 - x3)));
+
+                self.coeffs.append(
+                    ((y1 * (x2 - x3)) + (y2 * (x3 - x1)) + (y3 * (x1 - x2))) / ((x1 - x2) * (x1 - x3) * (x2 - x3)));
+                self.coeffs.append(((y1 * ((x3 * x3) - (x2 * x2))) + (y2 * ((x1 * x1) - (x3 * x3))) + (
+                y3 * ((x2 * x2) - (x1 * x1)))) / ((x1 - x2) * (x1 - x3) * (x2 - x3)));
                 self.coeffs.append(y1 - (x1 * x1 * self.coeffs[0]) - (x1 * self.coeffs[1]));
-                
+
                 if self.coeffs[0] == 0:
                     self.degree = 1
                 else:
                     self.degree = 2
-    
+
     def factor(self):
         """
         Return a tuple (a, b, c, d, e) representing the factored form of the quadratic,
@@ -72,47 +75,47 @@ class Polynomial:
         assert self.degree == 2, "Non-quadratic polynomial."
         for c in self.coeffs:
             assert isinstance(c, int), "Non-integer coefficient."
-        
+
         coeffs = list(self.coeffs)
         constant = math.gcd(math.gcd(coeffs[0], coeffs[1]), coeffs[2])
-        
+
         for i in range(len(coeffs)):
             coeffs[i] = int(coeffs[i] / constant)
-        
+
         ac_factors = factoring.factor(abs(coeffs[0] * coeffs[2]))
-        
+
         factorable = False
         for i in range((len(ac_factors) // 2) + 1):
-            if ac_factors[i] + ac_factors[-(i+1)] == coeffs[1]:
-                expanded = [coeffs[0], ac_factors[i], ac_factors[-(i+1)], coeffs[2]]
+            if ac_factors[i] + ac_factors[-(i + 1)] == coeffs[1]:
+                expanded = [coeffs[0], ac_factors[i], ac_factors[-(i + 1)], coeffs[2]]
                 factorable = True
                 break
-            elif abs(ac_factors[i] - ac_factors[-(i+1)]) == abs(coeffs[1]):
+            elif abs(ac_factors[i] - ac_factors[-(i + 1)]) == abs(coeffs[1]):
                 if coeffs[1] < 0:
-                    expanded = [coeffs[0], ac_factors[i], -1 * ac_factors[-(i+1)], coeffs[2]]
+                    expanded = [coeffs[0], ac_factors[i], -1 * ac_factors[-(i + 1)], coeffs[2]]
                     factorable = True
                     break
                 else:
-                    expanded = [coeffs[0], -1 * ac_factors[i], ac_factors[-(i+1)], coeffs[2]]
+                    expanded = [coeffs[0], -1 * ac_factors[i], ac_factors[-(i + 1)], coeffs[2]]
                     factorable = True
                     break
-                
+
         if not factorable:
             return None
-        
+
         divisors = [math.gcd(expanded[0], expanded[1]), math.gcd(expanded[2], expanded[3])]
         if expanded[0] < 0:
             divisors[0] *= -1
         if expanded[2] < 0:
             divisors[1] *= -1
-        
+
         expanded[0] //= divisors[0]
         expanded[1] //= divisors[0]
         expanded[2] //= divisors[1]
         expanded[3] //= divisors[1]
-        
-        return (constant, divisors[0], divisors[1], expanded[0], expanded[1])
-        
+
+        return tuple(constant, divisors[0], divisors[1], expanded[0], expanded[1])
+
     def __str__(self):
         """
         Return the object as a properly formatted polynomial function.
@@ -127,22 +130,22 @@ class Polynomial:
         s = ""
         for i in reversed(range(len(self.coeffs))):
             if i < self.degree:
-                if self.coeffs[-(i+1)] < 0:
+                if self.coeffs[-(i + 1)] < 0:
                     s += " - "
-                elif self.coeffs[-(i+1)] > 0:
+                elif self.coeffs[-(i + 1)] > 0:
                     s += " + "
-            
-            if self.coeffs[-(i+1)] != 0:
-                if self.coeffs[-(i+1)] != 1 or i == 0:
-                    n = abs(self.coeffs[-(i+1)])
+
+            if self.coeffs[-(i + 1)] != 0:
+                if self.coeffs[-(i + 1)] != 1 or i == 0:
+                    n = abs(self.coeffs[-(i + 1)])
                     s += str(int(n)) if n == int(n) else str(n)
                 if i > 0:
                     s += "x"
                     if i > 1:
                         s += "^" + str(i)
         return s
-    # End of Polynomial class
-    
+
+
 def factored_str(f):
     """
     Returns a formatted version of the tuple returned by factor_quadratic().
@@ -153,10 +156,10 @@ def factored_str(f):
     factored_str(f)                # 5(x - 9)(x + 8)
     """
     assert len(f) == 5, "Invalid input: incorrect length."
-    
+
     for c in f:
         assert isinstance(c, int), "Invalid input: non-int value."
-    
+
     s = ""
     if f[0] < 0:
         s += "-"
@@ -183,5 +186,5 @@ def factored_str(f):
     else:
         s += " + " + str(f[4])
     s += ")"
-    
+
     return s

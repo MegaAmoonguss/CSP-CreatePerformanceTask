@@ -1,5 +1,6 @@
 import math
 
+
 def lcm(a, b):
     """
     Return the lowest common multiple of two integers.
@@ -8,9 +9,9 @@ def lcm(a, b):
     lcm(21, 6)    # 42
     """
     assert isinstance(a, int) and isinstance(b, int), "Non-integer parameter."
-    
     return int(abs(a * b) / math.gcd(a, b))
-            
+
+
 def factor(n):
     """
     Return all positive factors of n as a list.
@@ -24,14 +25,13 @@ def factor(n):
         n *= -1
     
     factors = []
-    
     for i in range(1, int(math.sqrt(n)) + 1):
         if n % i == 0:
             factors.append(i)
             if i != n / i:
                 factors.append(int(n / i))
-            
     return sorted(factors)
+
 
 def prime_factor(n):
     """
@@ -52,8 +52,8 @@ def prime_factor(n):
             
     if n > 1:
         factors.append(n)
-        
     return factors
+
 
 def simplify_radical(n):
     """
@@ -72,5 +72,4 @@ def simplify_radical(n):
             radical[1] //= (pfactors[i]**2)
             del pfactors[i]
         i += 1
-    
     return radical
