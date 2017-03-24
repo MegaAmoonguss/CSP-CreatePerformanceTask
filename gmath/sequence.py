@@ -37,6 +37,11 @@ class Sequence:
         """
         Return the nth value of the sequence. Starts at index 0.
         """
+        if self.type == "constant":
+            if int(self.equation) == float(self.equation):
+                return int(self.equation)
+            return float(self.equation)
+
         retval = self.equation.subs(self.t, n)
         if retval == int(retval):
             return int(retval)
