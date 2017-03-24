@@ -24,7 +24,7 @@ def factor(config, n):
     """Returns the factors of an integer."""
     factors = gmath.factor(int(n))
     
-    click.echo("The factors of {} are {}.".format(n, factors), file=config.out)
+    click.echo(f"The factors of {n} are {factors}.", file=config.out)
     
 @cli.command()
 @click.argument('n', type=int)
@@ -38,7 +38,7 @@ def primefactor(config, n):
         factorization += str(f) + ' * '
     factorization = factorization[:-3]
     
-    click.echo("The prime factorization of {} is {}.".format(n, factorization), file=config.out)
+    click.echo(f"The prime factorization of {n} is {factorization}.", file=config.out)
     
 @cli.command()
 @click.argument("fraction")
@@ -58,7 +58,7 @@ def reduce(config, fraction):
         click.echo("Please a fraction in the format a/b where a and b are numbers.", err=True)
         sys.exit(2)
     
-    click.echo("{} = {}".format(fraction, reduced), file=config.out)
+    click.echo(f"{fraction} = {reduced}", file=config.out)
     
 @cli.command()
 @click.argument("fraction")
@@ -72,7 +72,7 @@ def decimal(config, fraction):
         sys.exit(2)
         
     decimal = gmath.repeating_decimal(a, b)
-    click.echo("{} = {}".format(fraction, decimal), file=config.out)
+    click.echo(f"{fraction} = {decimal}", file=config.out)
     
 @cli.command()
 @click.argument("decimal")
@@ -84,7 +84,7 @@ def fraction(config, decimal):
     except AssertionError:
         click.echo("Invalid decimal format.", err=True)
         sys.exit(2)
-    click.echo("{} = {}/{}".format(decimal, frac[0], frac[1]), file=config.out)
+    click.echo(f"{decimal} = {frac[0]}/{frac[1]}", file=config.out)
     
 @cli.command()
 @click.argument('n', type=float)
@@ -94,16 +94,16 @@ def sqrt(config, n):
     if n == int(n):
         n = int(n)
     else:
-        click.echo("The square root of {} is {}.".format(n, math.sqrt(n)), file=config.out)
+        click.echo(f"The square root of {n} is {math.sqrt(n)}.", file=config.out)
         sys.exit(0)
         
     root = math.sqrt(n)
     if int(root) == root:
-        click.echo("The square root of {} is {}.".format(n, int(root)), file=config.out)
+        click.echo(f"The square root of {n} is {int(root)}.", file=config.out)
     else:
         unformatted_root = gmath.simplify_radical(n)
         formatted_root = str(unformatted_root[0]) + " * sqrt(" + str(unformatted_root[1]) + ")"
-        click.echo("The square root of {} is {}.".format(n, formatted_root), file=config.out)
+        click.echo(f"The square root of {n} is {formatted_root}.", file=config.out)
         
 @cli.command()
 @click.argument('a', type=int)
@@ -112,7 +112,7 @@ def sqrt(config, n):
 def gcd(config, a, b):
     """Finds the greatest common divisor of two numbers."""   
     divisor = math.gcd(a, b)
-    click.echo("The greatest common divisor of {} and {} is {}.".format(a, b, divisor), file=config.out)
+    click.echo(f"The greatest common divisor of {a} and {b} is {divisor}.", file=config.out)
     
 @cli.command()
 @click.argument('a', type=int)
@@ -121,7 +121,7 @@ def gcd(config, a, b):
 def lcm(config, a, b):
     """Finds the lowest common multiple of two numbers."""
     multiple = gmath.lcm(a, b)
-    click.echo("The least common multiple of {} and {} is {}.".format(a, b, multiple), file=config.out)
+    click.echo(f"The least common multiple of {a} and {b} is {multiple}.", file=config.out)
     
 @cli.command()
 @click.argument('a', type=int)
@@ -133,9 +133,9 @@ def quadratic(config, a, b, c):
     p = gmath.Polynomial([a, b, c])
     factored = p.factor()
     if factored:
-        click.echo("{} = {}".format(str(p), gmath.factored_str(factored)), file=config.out)
+        click.echo(f"{str(p)} = {gmath.factored_str(factored)}", file=config.out)
     else:
-        click.echo("{} is not factorable.".format(str(p)), file=config.out)
+        click.echo(f"{str(p)} is not factorable.", file=config.out)
         
 @cli.command()
 @click.argument("points", nargs=-1)
@@ -158,7 +158,7 @@ def calcfunction(config, points):
         formatted[i] = [int(n) for n in points[i][1:-1].split(',')]
     
     p = gmath.Polynomial(points=formatted)
-    click.echo("y = {}".format(p), file=config.out)
+    click.echo(f"y = {p}", file=config.out)
 
 @cli.command()
 @click.option("-t", "--term", type=int, default=0, help="Get the nth term of the sequence.")
@@ -177,15 +177,15 @@ def sequence(config, term, next, terms):
         click.echo("No sequence found.")
         sys.exit(2)
     
-    click.echo("Sequence type: {}".format(s.type), file=config.out)
-    click.echo("Equation: {}".format(s.equation), file=config.out)
+    click.echo(f"Sequence type: {s.type}", file=config.out)
+    click.echo(f"Equation: {s.equation}", file=config.out)
     if term > 0:
-        click.echo("Term {} of sequence: {}".format(term, s.get_term(term)))
+        click.echo(f"Term {term} of sequence: {s.get_term(term)}")
     if next > 0:
         next_s = ""
         for i in range(1, next + 1):
             next_s += str(s.get_term(i + len(terms))) + ", "
-        click.echo("The next {} terms of the sequence: {}".format(next, next_s[:-2]))
+        click.echo(f"The next {next} terms of the sequence: {next_s[:-2]}")
     
 if __name__ == "__main__":
     cli()
