@@ -94,5 +94,4 @@ ENV/
 
 # Ignored modules
 test.py
-main.py
 bot.py
