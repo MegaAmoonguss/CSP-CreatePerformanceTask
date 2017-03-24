@@ -14,7 +14,7 @@ class Sequence:
         """
         self.t = sympy.symbols('t')
         if len(terms) > 1 and terms[1:] == terms[:-1]:
-            type = "constant"
+            self.type = "constant"
             self.equation = str(terms[0])
         elif is_arithmetic(terms):
             self.type = "arithmetic"
