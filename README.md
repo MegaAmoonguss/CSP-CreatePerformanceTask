@@ -37,4 +37,5 @@ $ gmath quadratic -o output.txt quadratic -- 5 -5 -360
 ```
 
 ## To do
-* Tons more cool stuff
+* High degree polynomial factorization
+* Dividing polynomials?
