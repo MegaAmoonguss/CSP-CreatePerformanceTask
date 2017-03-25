@@ -12,24 +12,24 @@ class Sequence:
         Initialize Sequence object by figuring out what kind of sequence the terms are a part of
         and the equation for the nth term.
         """
-        self.t = sympy.symbols('t')
+        t = sympy.symbols('t')
         if len(terms) > 1 and terms[1:] == terms[:-1]:
             self.type = "constant"
             self.equation = str(terms[0])
         elif is_arithmetic(terms):
             self.type = "arithmetic"
-            self.equation = terms[0] + (self.t - 1) * (terms[1] - terms[0])
+            self.equation = terms[0] + (t - 1) * (terms[1] - terms[0])
         elif is_geometric(terms):
             self.type = "geometric"
             d = terms[1] / terms[0]
             if int(d) == d:
                 d = int(d)
-            self.equation = terms[0] * (d)**(self.t - 1)
+            self.equation = terms[0] * d**(t - 1)
         elif is_quadratic(terms):
             self.type = "quadratic"
             p = Polynomial(points=((1, terms[0]), (2, terms[1]), (3, terms[2])))
             seq_coeffs = [int(c) for c in p.coeffs if int(c) == c]
-            self.equation = seq_coeffs[0] * self.t**2 + seq_coeffs[1] * self.t + seq_coeffs[2]
+            self.equation = seq_coeffs[0] * t**2 + seq_coeffs[1] * t + seq_coeffs[2]
         else:
             raise ValueError("No sequence found")
     
