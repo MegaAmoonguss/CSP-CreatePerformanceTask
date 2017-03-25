@@ -10,7 +10,6 @@ def reduce(a, b):
     reduce(8, 6)        # (4, 3)
     reduce(8.4, 6.2)    # (42, 31)
     """
-    decimals = 0
     if len(str(float(a)).split('.')[1]) > len(str(float(b)).split('.')[1]):
         decimals = len(str(float(a)).split('.')[1])
     else:
@@ -65,7 +64,7 @@ def fraction(dec):
     fraction(0.125)        # 1/8
     """
     if isinstance(dec, str):
-        nonrepeat = re.compile("^[0-9]*(\.[0-9]*)$")
+        nonrepeat = re.compile("^[0-9]*(\.[0-9]+)$")
         repeat = re.compile("^[0-9]*(\.[0-9]*(\([0-9]+\)))$")
         assert nonrepeat.match(dec) or repeat.match(dec), "Invalid decimal format."
     else:
@@ -79,7 +78,7 @@ def fraction(dec):
         denom = 10**len(str(numer).split('.')[1])
         numer *= denom
     else:
-        split = re.split(r"\(|\)|\.", dec)
+        split = re.split("[().]", dec)
         val1 = 10**(len(split[1]) + len(split[2]))
         val2 = 10**len(split[1])
         
