@@ -31,13 +31,16 @@ class Sequence:
             seq_coeffs = [int(c) for c in p.coeffs if int(c) == c]
             self.equation = seq_coeffs[0] * t**2 + seq_coeffs[1] * t + seq_coeffs[2]
         else:
-            raise ValueError("No sequence found")
+            self.type = None
+            self.equation = None
     
     def get_term(self, n):
         """
         Return the nth value of the sequence. Starts at index 0.
         """
-        if self.type == "constant":
+        if self.type is None:
+            raise ValueError("No sequence found")
+        elif self.type == "constant":
             if int(self.equation) == float(self.equation):
                 return int(self.equation)
             return float(self.equation)
