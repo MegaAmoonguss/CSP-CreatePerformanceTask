@@ -187,7 +187,7 @@ def sequence(config, term, next, terms):
     s = gmath.Sequence(terms)
     
     click.echo(f"Sequence type: {s.type}", file=config.out)
-    click.echo(f"Equation: {s.equation}", file=config.out)
+    click.echo(f"Equation: t_n = {s.equation}", file=config.out)
     if term > 0:
         try:
             click.echo(f"Term {term} of sequence: {s.get_term(term)}")
