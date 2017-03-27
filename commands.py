@@ -2,6 +2,7 @@ import sys
 import re
 import click
 import math
+import sympy
 import gmath
 
 
@@ -134,6 +135,7 @@ def lcm(config, a, b):
     click.echo(f"The least common multiple of {a} and {b} is {multiple}.", file=config.out)
 
 
+# To be deleted?
 @cli.command()
 @click.argument('a', type=int)
 @click.argument('b', type=int)
@@ -149,13 +151,26 @@ def quadratic(config, a, b, c):
         click.echo(f"{str(p)} is not factorable.", file=config.out)
 
 
+# Must decide between keeping this or making it independent of SymPy
+@cli.command()
+@click.argument("coeffs", nargs=-1, type=int)
+@pass_config
+def polynomial(config, coeffs):
+    """Returns the factored form of the polynomial with the entered coefficients."""
+    x = sympy.symbols('x')
+    eq = coeffs[0] * x**(len(coeffs) - 1)
+    for i in range(1, len(coeffs)):
+        eq += coeffs[i] * x**(len(coeffs) - 1 - i)
+    click.echo(str(eq) + " = " + str(eq.factor()), file=config.out)
+
+
 @cli.command()
 @click.argument("points", nargs=-1)
 @pass_config
 def calcfunction(config, points):
     """
-    Calculates the equation of a line or quadratic going through
-    2 or 3 given points.
+    Calculates the equation of a line or quadratic going through 2 or 3
+    given points.
     """
     if not len(points) in (2, 3):
         click.echo("Please enter two or three points in the format (x,y).", err=True)

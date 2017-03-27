@@ -49,10 +49,11 @@ class Polynomial:
                 x3, y3 = points[2]
 
                 self.coeffs.append(
-                    ((y1 * (x2 - x3)) + (y2 * (x3 - x1)) + (y3 * (x1 - x2))) / ((x1 - x2) * (x1 - x3) * (x2 - x3)));
-                self.coeffs.append(((y1 * ((x3 * x3) - (x2 * x2))) + (y2 * ((x1 * x1) - (x3 * x3))) + (
-                y3 * ((x2 * x2) - (x1 * x1)))) / ((x1 - x2) * (x1 - x3) * (x2 - x3)));
-                self.coeffs.append(y1 - (x1 * x1 * self.coeffs[0]) - (x1 * self.coeffs[1]));
+                    ((y1 * (x2 - x3)) + (y2 * (x3 - x1)) + (y3 * (x1 - x2))) / ((x1 - x2) * (x1 - x3) * (x2 - x3)))
+                self.coeffs.append(
+                    ((y1 * ((x3 * x3) - (x2 * x2))) + (y2 * ((x1 * x1) - (x3 * x3))) + (y3 * ((x2 * x2) - (x1 * x1)))) /
+                    ((x1 - x2) * (x1 - x3) * (x2 - x3)))
+                self.coeffs.append(y1 - (x1 * x1 * self.coeffs[0]) - (x1 * self.coeffs[1]))
 
                 if self.coeffs[0] == 0:
                     self.degree = 1
@@ -114,7 +115,7 @@ class Polynomial:
         expanded[2] //= divisors[1]
         expanded[3] //= divisors[1]
 
-        return tuple(constant, divisors[0], divisors[1], expanded[0], expanded[1])
+        return constant, divisors[0], divisors[1], expanded[0], expanded[1]
 
     def __str__(self):
         """
