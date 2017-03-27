@@ -135,23 +135,22 @@ def lcm(config, a, b):
     click.echo(f"The least common multiple of {a} and {b} is {multiple}.", file=config.out)
 
 
-# To be deleted?
-@cli.command()
-@click.argument('a', type=int)
-@click.argument('b', type=int)
-@click.argument('c', type=int)
-@pass_config
-def quadratic(config, a, b, c):
-    """Returns a factored form of the quadratic with the entered coefficients."""
-    p = gmath.Polynomial([a, b, c])
-    factored = p.factor()
-    if factored:
-        click.echo(f"{str(p)} = {gmath.factored_str(factored)}", file=config.out)
-    else:
-        click.echo(f"{str(p)} is not factorable.", file=config.out)
+# Depricated, use polynomial instead
+# @cli.command()
+# @click.argument('a', type=int)
+# @click.argument('b', type=int)
+# @click.argument('c', type=int)
+# @pass_config
+# def quadratic(config, a, b, c):
+#     """Returns a factored form of the quadratic with the entered coefficients."""
+#     p = gmath.Polynomial([a, b, c])
+#     factored = p.factor()
+#     if factored:
+#         click.echo(f"{str(p)} = {gmath.factored_str(factored)}", file=config.out)
+#     else:
+#         click.echo(f"{str(p)} is not factorable.", file=config.out)
 
 
-# Must decide between keeping this or making it independent of SymPy
 @cli.command()
 @click.argument("coeffs", nargs=-1, type=int)
 @pass_config
