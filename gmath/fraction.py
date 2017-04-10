@@ -64,8 +64,8 @@ def fraction(dec):
     fraction(0.125)        # 1/8
     """
     if isinstance(dec, str):
-        nonrepeat = re.compile(r"^[0-9]*(\.[0-9]+)$")
-        repeat = re.compile(r"^[0-9]*(\.[0-9]*(\([0-9]+\)))$")
+        nonrepeat = re.compile(r"^\d*(\.\d+)$")
+        repeat = re.compile(r"^\d*(\.\d*(\(\d+\)))$")
         assert nonrepeat.match(dec) or repeat.match(dec), "Invalid decimal format."
     else:
         assert isinstance(dec, float), "Invalid decimal format."
