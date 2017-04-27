@@ -39,3 +39,4 @@ $ gmath -o output.txt quadratic -- 5 -5 -360
 ## To do
 * High degree polynomial factorization
 * Dividing polynomials?
+* Click is so slow, find a fix, probably a different CLI library
