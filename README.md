@@ -13,11 +13,16 @@ $ pip install --editable .
 ```
 
 ## Usage
+Example:
+```
+$ gmath fraction 0.08(3)
+0.08(3) = 1/12
+```
 To get started, run:
 ```
 $ gmath --help
 ```
-To get more detailed help for a specific option, pass `--help` after the option:
+To get more detailed help for a specific option, pass `--help` after the command:
 ```
 $ gmath calcfunction --help
 Usage: gmath calcfunction [OPTIONS] [POINTS]...
@@ -27,11 +32,6 @@ Usage: gmath calcfunction [OPTIONS] [POINTS]...
 
 Options:
   --help  Show this message and exit.
-```
-Example:
-```
-$ gmath fraction 0.08(3)
-0.08(3) = 1/12
 ```
 If you want to pass a negative number as an argument, by default GMath will think it is an option because it uses Click for the CLI. To fix this, type `--` and everything after will be parsed as an argument instead of an option.
 Example:
