@@ -17,6 +17,17 @@ To get started, run:
 ```
 $ gmath --help
 ```
+To get more detailed help for a specific option, pass `--help` after the option:
+```
+$ gmath calcfunction --help
+Usage: gmath calcfunction [OPTIONS] [POINTS]...
+
+  Calculates the equation of a line or quadratic going through 2 or 3 given
+  points.
+
+Options:
+  --help  Show this message and exit.
+```
 Example:
 ```
 $ gmath fraction 0.08(3)
